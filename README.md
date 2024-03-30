@@ -1,2 +1,11 @@
 # Library-Management-Web-App-DLWGQZ
-Informatikai Rendszerek Építése Beadandó (2024)
+
+Név: Szkárosi Szilárd
+
+Neptunkód: DLWGQZ
+
+Szak: Mérnökinformatikus BSc
+
+Feladat sorszáma: 2
+
+Téma: Könyvtári nyilvántartás
