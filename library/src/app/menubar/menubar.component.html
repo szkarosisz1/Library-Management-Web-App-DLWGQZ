@@ -1,0 +1,56 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+    <button (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 style="margin-right: auto;">Könyvtár nyilvántartó webalkalmazás</h1>
+    <div>
+        <button mat-button>Kijelentkezés</button>
+    </div>
+</mat-toolbar>
+<mat-drawer-container class="mat-drawer-container">
+    <mat-drawer #drawer mode="side" opened="true">
+      <mat-nav-list>
+        <mat-list-item>
+          <button routerLink="" mat-button>
+            <mat-icon>home</mat-icon>
+            Főoldal
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button routerLink="/member-list" mat-button>
+            <mat-icon>explore</mat-icon>
+            Tag lista
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button [matMenuTriggerFor]="inventoryMenu" mat-button>
+            <mat-icon>assignment</mat-icon>
+            Állomány
+          </button>
+          <mat-menu #inventoryMenu="matMenu">
+            <button routerLink="/book-list" mat-menu-item>Könyvek</button>
+            <button routerLink="/multimedia-list" mat-menu-item>Média</button>
+          </mat-menu>
+        </mat-list-item>
+        <mat-list-item>
+          <button routerLink="/borrow" mat-button>
+            <mat-icon>attach_money</mat-icon>
+            Kölcsönzés
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button routerLink="/return" mat-button>
+            <mat-icon>undo</mat-icon>
+            Visszahozás
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+            <router-outlet/>
+        </div>    
+    </mat-drawer-content>
+</mat-drawer-container>
+  
+  
