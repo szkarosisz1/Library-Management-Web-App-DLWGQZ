@@ -1,5 +1,24 @@
-<p>Home works!</p>
+<div class="container">
+    <h1>Üdvözöllek a könyvtár nyilvántartó webalkalmazásban!</h1>
+    <p>Ez az alkalmazás lehetővé teszi a könyvek, multimédiás anyagok kölcsönzését és nyilvántartását.</p>
   
+    <!-- Képek gombnyomással való váltásához -->
+    <div class="image-container" [ngClass]="{'slide-in': slideAnimation}">
+      <img src="assets/images/book-1.jpg" *ngIf="selectedImage === 1">
+      <img src="assets/images/book-2.png" *ngIf="selectedImage === 2">
+      <img src="assets/images/book-3.jpg" *ngIf="selectedImage === 3">
+    </div>
+  
+    <!-- Nyilak a képek váltásához -->
+    <div class="button-container">
+      <button mat-icon-button (click)="prevImage()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextImage()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+</div>
   
   
   
