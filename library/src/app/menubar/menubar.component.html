@@ -7,8 +7,9 @@
         <button mat-button>Kijelentkezés</button>
     </div>
 </mat-toolbar>
+
 <mat-drawer-container class="mat-drawer-container">
-    <mat-drawer #drawer mode="side" opened="true">
+    <mat-drawer #drawer opened="true" mode="side" position="start">
       <mat-nav-list>
         <mat-list-item>
           <button routerLink="" mat-button>
@@ -19,7 +20,7 @@
         <mat-list-item>
           <button routerLink="/member-list" mat-button>
             <mat-icon>explore</mat-icon>
-            Tag lista
+            Tagok listája
           </button>
         </mat-list-item>
         <mat-list-item>
@@ -28,8 +29,14 @@
             Állomány
           </button>
           <mat-menu #inventoryMenu="matMenu">
-            <button routerLink="/book-list" mat-menu-item>Könyvek</button>
-            <button routerLink="/multimedia-list" mat-menu-item>Média</button>
+            <button routerLink="/book-list" mat-menu-item>
+                <mat-icon>menu_book</mat-icon>
+                Könyvek
+              </button>
+              <button routerLink="/multimedia-list" mat-menu-item>
+                <mat-icon>library_music</mat-icon>
+                Média
+              </button>
           </mat-menu>
         </mat-list-item>
         <mat-list-item>
@@ -47,7 +54,7 @@
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>
-        <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div style="text-align: center; min-height: 100vh;">
             <router-outlet/>
         </div>    
     </mat-drawer-content>
