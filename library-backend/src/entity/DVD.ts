@@ -2,25 +2,22 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Borrow } from './Borrow';
 
 @Entity()
-export class User {
+export class DVD {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
-  phoneNumber: string;
+  acquisitionDate: Date;
 
   @Column()
-  identityNumber: string;
+  serialNumber: string;
 
   @Column()
-  address: string;
+  status: string; // lehet 'szabad', 'kikölcsönzött', 'selejtezett'
 
-  @Column()
-  status: string;
-
-  @OneToMany(() => Borrow, borrow => borrow.user)
+  @OneToMany(() => Borrow, borrow => borrow.dvd)
   borrows: Borrow[];
 }
