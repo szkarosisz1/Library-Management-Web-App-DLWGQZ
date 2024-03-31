@@ -19,12 +19,13 @@ export interface BorrowDTO {
 }
 
 export interface CassetteDTO {
-    id: number,
-    author: string,
-    title: string,
-    acquisitionDate: Date,
-    serialNumber: string,
-    status: string,
+    id: number;
+    author: string;
+    title: string;
+    acquisitionDate: Date;
+    serialNumber: string;
+    status: string;
+    
 }
 
 export interface DVDDTO {
