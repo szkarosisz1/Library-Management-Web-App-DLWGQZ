@@ -1,6 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Borrow } from './Borrow';
 
+export enum StatusMember {
+  active = 'aktív',
+  inactive = 'passzív'
+}
+
 @Entity()
 export class Member {
   @PrimaryGeneratedColumn()
@@ -24,9 +29,13 @@ export class Member {
   @Column()
   address: string;
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: StatusMember,
+    default: StatusMember.active
+    })
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.member)
-  borrows: Borrow;
+  borrows: Borrow[];
 }

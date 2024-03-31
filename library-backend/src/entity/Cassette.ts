@@ -1,6 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Borrow } from './Borrow';
 
+export enum Status {
+  free = 'szabad',
+  borrowed = 'kikölcsönzött',
+  scrapped = 'selejtezett',
+  other = 'egyéb'
+}
+
 @Entity()
 export class Cassette {
   @PrimaryGeneratedColumn()
@@ -15,12 +22,19 @@ export class Cassette {
   @Column()
   acquisitionDate: Date; //Beszerzés dátuma
 
-  @Column()
+  @Column({
+    unique: true,
+    length: 13
+  })
   serialNumber: string;
 
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.other
+  })
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.cassette)
-  borrows: Borrow;
+  borrows: Borrow[];
 }
