@@ -28,5 +28,5 @@ export class Member {
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.member)
-  borrows: Borrow[];
+  borrows: Borrow;
 }

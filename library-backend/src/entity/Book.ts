@@ -22,5 +22,5 @@ export class Book {
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.book)
-  borrows: Borrow[];
+  borrows: Borrow;
 }

@@ -22,5 +22,5 @@ export class DVD {
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.dvd)
-  borrows: Borrow[];
+  borrows: Borrow;
 }

@@ -22,5 +22,5 @@ export class Cassette {
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.cassette)
-  borrows: Borrow[];
+  borrows: Borrow;
 }
