@@ -10,22 +10,22 @@ export class BorrowService {
   constructor(private http: HttpClient) { }
 
   getAll(){
-    return this.http.get<BorrowDTO[]>('api/borrrow');
+    return this.http.get<BorrowDTO[]>('http://localhost:3000/api/borrow');
   }
 
   getOne(id: number) {
-    return this.http.get<BorrowDTO>('api/borrow/' + id);
+    return this.http.get<BorrowDTO>('http://localhost:3000/api/borrow/' + id);
   }
 
   create(borrow: BorrowDTO){
-    return this.http.post<BorrowDTO>('api/borrow', borrow);
+    return this.http.post<BorrowDTO>('http://localhost:3000/api/borrow', borrow);
   }
 
   update(borrow: BorrowDTO){
-    return this.http.put<BorrowDTO>('api/borrow', borrow);
+    return this.http.put<BorrowDTO>('http://localhost:3000/api/borrow', borrow);
   }
 
   delete(id: number) {
-    return this.http.delete<BorrowDTO>('api/borrow/' + id);
+    return this.http.delete<BorrowDTO>('http://localhost:3000/api/borrow/' + id);
   }
 }

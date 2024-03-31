@@ -1,9 +1,10 @@
 import { Repository } from "typeorm";
+import { Request, Response } from 'express';
 
 export abstract class Controller {
     repository: Repository<any>;
 
-    getAll = async (req, res) => {
+    getAll = async (req:Request, res:Response) => {
         try {
             const entities = await this.repository.find();
             res.json(entities);
@@ -12,11 +13,12 @@ export abstract class Controller {
         }
     };
 
-    getOne = async (req, res) => {
+    getOne = async (req:Request, res:Response) => {
         try {
-            const entity = await this.repository.findOneBy({ id: req.params.id });
+            const id = req.params.id;
+            const entity = await this.repository.findOneBy({ id: id });
             if (!entity) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
+                return this.handleError(res, null, 404, 'Not found.');
             }
 
             res.json(entity);
@@ -25,11 +27,11 @@ export abstract class Controller {
         }
     };
 
-    create = async (req, res) => {
+    create = async (req:Request, res:Response) => {
         try {
             const entity = this.repository.create(req.body as object);
             entity.id = null;
-            
+
             const result = await this.repository.save(entity);
 
             res.json(result);
@@ -38,15 +40,15 @@ export abstract class Controller {
         }
     };
 
-    update = async (req, res) => {
+    update = async (req:Request, res:Response) => {
         try {
-            let entity = await this.repository.findOneBy({ id: req.body.id });
-            if (!entity || !req.body.id) {
+            let entityToUpdate = await this.repository.findOneBy({ id: req.body.id });
+            if (!entityToUpdate || !req.body.id) {
                 return this.handleError(res, null, 404, 'No entity found with this id.');
             }
 
-            entity = this.repository.create(req.body as object);
-            const result = await this.repository.save(entity);
+            entityToUpdate = this.repository.create(req.body as object);
+            const result = await this.repository.save(entityToUpdate);
 
             res.json(result);
         } catch (err) {
@@ -54,25 +56,32 @@ export abstract class Controller {
         }
     };
 
-    delete = async (req, res) => {
+    delete = async (req:Request, res:Response) => {
         try {
-            const entity = await this.repository.findOneBy({ id: req.params.id });
-            if (!entity) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
+            const entityToDelete = await this.repository.findOneBy({
+                id: req.params.id
+            });
+
+            if (!entityToDelete) {
+                return this.handleError(res, null, 404, 'Entity not found.');
             }
 
-            await this.repository.remove(entity);
+            await this.repository.remove(entityToDelete);
             res.status(200).send();
         } catch (err) {
             this.handleError(res, err);
         }
-    }
+    };
 
-    handleError(res, err = null, status = 500, message = 'Database error occurred.') {
+    handleError(res:Response, err = null, status = 500, message = 'Unexpected server error') {
         if (err) {
             console.error(err);
         }
 
-        res.status(status).json({ error: message });
+        if(err.code && err.code == 'ER_DUP_ENTRY'){
+          res.status(422).json({ error: err.code })
+        } else {
+          res.status(status).json({ error: message });
+        }
     }
 }

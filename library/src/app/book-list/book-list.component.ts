@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookDTO } from '../../../model/library.dto';
 import { MatTableModule } from "@angular/material/table";
 import { BookService } from '../service/book.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { BookService } from '../service/book.service';
   standalone: true,
   imports: [
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css'
