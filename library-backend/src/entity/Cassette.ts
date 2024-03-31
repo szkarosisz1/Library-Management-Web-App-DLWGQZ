@@ -24,7 +24,7 @@ export class Cassette {
 
   @Column({
     unique: true,
-    length: 13
+    length: 17
   })
   serialNumber: string;
 
