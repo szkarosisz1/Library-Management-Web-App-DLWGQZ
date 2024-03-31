@@ -7,16 +7,19 @@ export class Cassette {
   id: number;
 
   @Column()
+  author: string;
+
+  @Column()
   title: string;
 
   @Column()
-  acquisitionDate: Date;
+  acquisitionDate: Date; //Beszerzés dátuma
 
   @Column()
   serialNumber: string;
 
   @Column()
-  status: string; // lehet 'szabad', 'kikölcsönzött', 'selejtezett'
+  status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.cassette)
   borrows: Borrow[];

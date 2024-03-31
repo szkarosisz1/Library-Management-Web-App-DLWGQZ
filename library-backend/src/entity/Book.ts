@@ -13,13 +13,13 @@ export class Book {
   author: string;
 
   @Column()
-  acquisitionDate: Date;
+  acquisitionDate: Date; //Beszerzés dátuma
 
   @Column()
   serialNumber: string;
 
   @Column()
-  status: string; // lehet 'szabad', 'kikölcsönzött', 'selejtezett'
+  status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.book)
   borrows: Borrow[];
