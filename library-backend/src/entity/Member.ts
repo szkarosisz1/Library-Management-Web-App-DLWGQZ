@@ -17,7 +17,7 @@ export class Member {
 
   @Column({
     unique: true,
-    length: 11
+    length: 8
   })
   identityNumber: string; //személyigazolvány
 
