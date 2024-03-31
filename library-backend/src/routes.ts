@@ -5,7 +5,8 @@ import { CassetteController } from './Controller/cassette.controller';
 import { DvdController } from './Controller/dvd.controller';
 import { MemberController } from './Controller/member.controller';
 
-export function getRoutes(){
+
+export function getRoutes(): express.Router{
     const router = express.Router();
 
     const bookController = new BookController();
@@ -43,4 +44,6 @@ export function getRoutes(){
     router.post('/member', memberController.create);
     router.put('/member', memberController.update);
     router.delete('/member/:id', memberController.delete);
+
+    return router;
 }
