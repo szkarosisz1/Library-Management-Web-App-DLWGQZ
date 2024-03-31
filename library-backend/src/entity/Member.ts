@@ -3,7 +3,8 @@ import { Borrow } from './Borrow';
 
 export enum StatusMember {
   active = 'aktív',
-  inactive = 'passzív'
+  inactive = 'passzív',
+  other = 'egyéb'
 }
 
 @Entity()
@@ -32,7 +33,7 @@ export class Member {
   @Column({
     type: 'enum',
     enum: StatusMember,
-    default: StatusMember.active
+    default: StatusMember.other
     })
   status: string;
 
