@@ -1,3 +1,6 @@
+export type StatusType = 'szabad' | 'kikölcsönzött' | 'selejtezett' |  'egyéb';
+export type StatusMemberType = 'aktív' | 'passzív' | 'egyéb';
+
 export interface BookDTO {
     id: number;
     title: string;
@@ -5,7 +8,7 @@ export interface BookDTO {
     acquisitionDate: Date;
     serialNumber: string;
     status: string;
-    borrows: BorrowDTO;
+    borrows: BorrowDTO[];
 }
 
 export interface BorrowDTO {
@@ -13,9 +16,9 @@ export interface BorrowDTO {
     borrowDate: Date;
     returnDate: Date;
     member: MemberDTO;
-    book: BookDTO;
-    cassette: CassetteDTO;
-    dvd: DVDDTO;
+    book: null | BookDTO;
+    cassette: null | CassetteDTO;
+    dvd: null | DVDDTO;
 }
 
 export interface CassetteDTO {
@@ -25,23 +28,25 @@ export interface CassetteDTO {
     acquisitionDate: Date;
     serialNumber: string;
     status: string;
-    
+    borrows: BorrowDTO[];
 }
 
 export interface DVDDTO {
-    id: number,
-    author: string,
-    title: string,
-    acquisitionDate: Date,
-    serialNumber: string,
-    status: string,
+    id: number;
+    author: string;
+    title: string;
+    acquisitionDate: Date;
+    serialNumber: string;
+    status: string;
+    borrows: BorrowDTO[];
 }
 
 export interface MemberDTO {
-    id: number,
-    name: string,
-    phoneNumber: string,
-    identityNumber: string,
-    address: string, 
-    status: string,
+    id: number;
+    name: string;
+    phoneNumber: string;
+    identityNumber: string;
+    address: string; 
+    status: string;
+    borrows: BorrowDTO[];
 }
