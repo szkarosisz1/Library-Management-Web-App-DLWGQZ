@@ -1,15 +1,29 @@
-<mat-card class="container">
+<div class="container">
     <h2>Könyvek listája</h2>
-    <mat-card *ngFor="let book of books" class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Cím: {{ book.title }}</mat-card-title>
-        <mat-card-subtitle>Szerző: {{ book.author }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>Beszerzés dátuma: {{ book.acquisitionDate }}</p>
-        <p>ISBN szám: {{ book.serialNumber }}</p>
-        <p>Státusz: {{ book.status }}</p>
-      </mat-card-content>
-    </mat-card>
-</mat-card>
+    <mat-table class="mat-elevation-z8" [dataSource]="books">
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef>Cím</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.title }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="author">
+            <mat-header-cell *matHeaderCellDef>Szerző</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.author }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acquisitionDate">
+            <mat-header-cell *matHeaderCellDef>Beszerzés dátuma</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.acquisitionDate }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef>ISBN szám</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.serialNumber }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Státusz</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.status }}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+
+  
