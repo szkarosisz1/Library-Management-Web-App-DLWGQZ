@@ -1,1 +1,27 @@
-<p>member-list works!</p>
+<div class="container">
+    <h1>Tagok listája</h1>
+    <mat-table class="mat-elevation-z8" [dataSource]="members">
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
+            <mat-cell *matCellDef="let member">{{ member.name }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="phoneNumber">
+            <mat-header-cell *matHeaderCellDef>Telefonszám</mat-header-cell>
+            <mat-cell *matCellDef="let member">{{ member.phoneNumber }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="identityNumber">
+            <mat-header-cell *matHeaderCellDef>Személyigazolvány szám</mat-header-cell>
+            <mat-cell *matCellDef="let member">{{ member.identityNumber }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef>Lakcím</mat-header-cell>
+            <mat-cell *matCellDef="let member">{{ member.address }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Státusz</mat-header-cell>
+            <mat-cell *matCellDef="let member">{{ member.status }}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
