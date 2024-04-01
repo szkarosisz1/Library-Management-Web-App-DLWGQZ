@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BorrowDTO } from '../../../model/library.dto';
+import { apiUrl } from '../api.url';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +11,22 @@ export class BorrowService {
   constructor(private http: HttpClient) { }
 
   getAll(){
-    return this.http.get<BorrowDTO[]>('http://localhost:3000/api/borrow');
+    return this.http.get<BorrowDTO[]>(apiUrl.ServiceApi + 'borrow');
   }
 
   getOne(id: number) {
-    return this.http.get<BorrowDTO>('http://localhost:3000/api/borrow/' + id);
+    return this.http.get<BorrowDTO>(apiUrl.ServiceApi + 'borrow/' + id);
   }
 
   create(borrow: BorrowDTO){
-    return this.http.post<BorrowDTO>('http://localhost:3000/api/borrow', borrow);
+    return this.http.post<BorrowDTO>(apiUrl.ServiceApi + 'borrow', borrow);
   }
 
   update(borrow: BorrowDTO){
-    return this.http.put<BorrowDTO>('http://localhost:3000/api/borrow', borrow);
+    return this.http.put<BorrowDTO>(apiUrl.ServiceApi + 'borrow', borrow);
   }
 
   delete(id: number) {
-    return this.http.delete<BorrowDTO>('http://localhost:3000/api/borrow/' + id);
+    return this.http.delete<BorrowDTO>(apiUrl.ServiceApi + 'borrow/' + id);
   }
 }
