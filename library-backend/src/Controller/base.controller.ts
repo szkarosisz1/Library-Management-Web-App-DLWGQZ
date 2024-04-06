@@ -40,22 +40,48 @@ export abstract class Controller {
         }
     };
 
-    update = async (req:Request, res:Response) => {
+    update = async (req: Request, res: Response) => {
         try {
-            let entityToUpdate = await this.repository.findOneBy({ id: req.body.id });
-            if (!entityToUpdate || !req.body.id) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
-            }
-
-            entityToUpdate = this.repository.create(req.body as object);
-            const result = await this.repository.save(entityToUpdate);
-
-            res.json(result);
+          const updatedEntity = req.body; 
+          const entityId = req.params.id; 
+      
+          const existingEntity = await this.repository.findOneBy({ id: entityId });
+      
+          if (!existingEntity) {
+            return this.handleError(res, null, 404, 'No entity found with this id.');
+          }
+      
+          Object.assign(existingEntity, updatedEntity);
+      
+          const result = await this.repository.save(existingEntity);
+      
+          res.json(result);
         } catch (err) {
-            this.handleError(res, err);
+          this.handleError(res, err);
         }
     };
 
+    updateStatus = async (req: Request, res: Response) => {
+        try {
+          const updatedStatus = req.body.status;
+          const memberId = req.params.id;
+      
+          const existingMember = await this.repository.findOneBy({ id: memberId });
+      
+          if (!existingMember) {
+            return this.handleError(res, null, 404, 'No entity found with this id.');
+          }
+      
+          existingMember.status = updatedStatus;
+      
+          const result = await this.repository.save(existingMember);
+      
+          res.json(result);
+        } catch (err) {
+          this.handleError(res, err);
+        }
+    };
+      
     delete = async (req:Request, res:Response) => {
         try {
             const entityToDelete = await this.repository.findOneBy({

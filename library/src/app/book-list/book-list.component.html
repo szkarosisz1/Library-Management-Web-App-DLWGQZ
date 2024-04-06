@@ -1,5 +1,16 @@
-<div class="container">
-    <h1>Könyvek listája</h1>
+<mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+<div class="container" style="width: 150vh; margin: 0 auto;">
+    <mat-toolbar color="primary">
+        <button mat-flat-button color="primary" (click)="refresh()" style="height: 5vh;">
+            <mat-icon>refresh</mat-icon> Oldal frissítése
+          </button>
+        <span style="flex: 1 1 auto;"></span>
+        <h1>Könyvek listája</h1>
+    </mat-toolbar>
+    <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
+        <p style="color: white">Könyvek betöltése...</p>
+    </ngx-spinner>
     <mat-table class="mat-elevation-z8" [dataSource]="books">
         <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef>Cím</mat-header-cell>
@@ -25,5 +36,3 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 </div>
-
-  

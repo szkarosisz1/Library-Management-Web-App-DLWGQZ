@@ -42,7 +42,8 @@ export function getRoutes(): express.Router{
     router.get('/member', memberController.getAll);
     router.get('/member/:id', memberController.getOne);
     router.post('/member', memberController.create);
-    router.put('/member', memberController.update);
+    router.put('/member/:id', memberController.update);
+    router.put('/member/:id/status', memberController.update);
     router.delete('/member/:id', memberController.delete);
 
     return router;

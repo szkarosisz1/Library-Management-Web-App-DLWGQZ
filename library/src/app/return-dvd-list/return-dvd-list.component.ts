@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
 import { BorrowDTO } from '../../../model/library.dto';
 import { BorrowService } from '../service/borrow.service';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatDivider } from '@angular/material/divider';
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-borrow',
+  selector: 'app-return-dvd-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,12 +25,12 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     HttpClientModule,
     NgxSpinnerModule
   ],
-  templateUrl: './borrow.component.html',
-  styleUrl: './borrow.component.css'
+  templateUrl: './return-dvd-list.component.html',
+  styleUrl: './return-dvd-list.component.css'
 })
-export class BorrowComponent {
+export class ReturnDvdListComponent {
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'book', 'cassette', 'dvd'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'dvd'];
 
   constructor(private borrowService: BorrowService, private spinner: NgxSpinnerService) { }
 
@@ -51,7 +51,7 @@ export class BorrowComponent {
   loadBorrows(): void {
     this.borrowService.getAll().subscribe({
       next: (borrows) => {
-        this.borrows = borrows;
+        this.borrows = borrows.filter(borrow => borrow.returnDate != null);
       },
       error: (err) => {
         console.log(err);

@@ -2,10 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Borrow } from './Borrow';
 
 export enum Status {
-  free = 'szabad',
-  borrowed = 'kikölcsönzött',
-  scrapped = 'selejtezett',
-  other = 'egyéb'
+  free = 'Szabad',
+  borrowed = 'Kikölcsönzött',
+  scrapped = 'Selejtezett'
 }
 
 @Entity()
@@ -20,7 +19,7 @@ export class Book {
   author: string;
 
   @Column()
-  acquisitionDate: Date; //Beszerzés dátuma
+  acquisitionDate: Date;
 
   @Column({
     unique: true,
@@ -31,7 +30,7 @@ export class Book {
   @Column({
     type: 'enum',
     enum: Status,
-    default: Status.other
+    default: Status.free
   })
   status: string;
 

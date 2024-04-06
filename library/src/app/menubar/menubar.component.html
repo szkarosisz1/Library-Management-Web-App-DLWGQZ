@@ -1,63 +1,79 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-    <button (click)="drawer.toggle()" mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1 style="margin-right: auto;">Könyvtár nyilvántartó webalkalmazás</h1>
-    <div>
-        <button mat-button>Kijelentkezés</button>
-    </div>
+  <button (click)="drawer.toggle()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 style="margin-right: auto;">Könyvtár nyilvántartó webalkalmazás</h1>
+  <div>
+    <button mat-button>Kijelentkezés</button>
+  </div>
 </mat-toolbar>
 
 <mat-drawer-container class="mat-drawer-container">
-    <mat-drawer #drawer opened="true" mode="side" position="start">
-      <mat-nav-list>
-        <mat-list-item>
-          <button routerLink="" mat-button>
-            <mat-icon>home</mat-icon>
-            Főoldal
+  <mat-drawer #drawer opened="true" mode="side" position="start">
+    <mat-nav-list>
+      <mat-list-item>
+        <button routerLink="/home" mat-button>
+          <mat-icon>home</mat-icon>
+          Főoldal
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button routerLink="/member-list" mat-button>
+          <mat-icon>explore</mat-icon>
+          Tagok listái
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button [matMenuTriggerFor]="categoryMenu" mat-button>
+          <mat-icon>assignment</mat-icon>
+          Kategória
+        </button>
+        <mat-menu #categoryMenu="matMenu">
+          <button routerLink="/book-list" mat-menu-item>
+            <mat-icon>menu_book</mat-icon>
+            Könyv
           </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button routerLink="/member-list" mat-button>
-            <mat-icon>explore</mat-icon>
-            Tagok listája
+          <button routerLink="/cassette-list" mat-menu-item>
+            <mat-icon>library_music</mat-icon>
+            Kazetta
           </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button [matMenuTriggerFor]="inventoryMenu" mat-button>
-            <mat-icon>assignment</mat-icon>
-            Állomány
+          <button routerLink="/dvd-list" mat-menu-item>
+            <mat-icon>ondemand_video</mat-icon>
+            DVD
           </button>
-          <mat-menu #inventoryMenu="matMenu">
-            <button routerLink="/book-list" mat-menu-item>
-                <mat-icon>menu_book</mat-icon>
-                Könyvek
-              </button>
-              <button routerLink="/multimedia-list" mat-menu-item>
-                <mat-icon>library_music</mat-icon>
-                Média
-              </button>
-          </mat-menu>
-        </mat-list-item>
-        <mat-list-item>
-          <button routerLink="/borrow" mat-button>
-            <mat-icon>attach_money</mat-icon>
-            Kölcsönzés
+        </mat-menu>
+      </mat-list-item>
+      <mat-list-item>
+        <button routerLink="/borrow" mat-button>
+          <mat-icon>attach_money</mat-icon>
+          Kölcsönzés
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button [matMenuTriggerFor]="returnMenu" mat-button>
+          <mat-icon>undo</mat-icon>
+          Visszahozás
+        </button>
+        <mat-menu #returnMenu="matMenu">
+          <button routerLink="/return-book-list" mat-menu-item>
+            <mat-icon>menu_book</mat-icon>
+            Visszahozott könyvek
           </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button routerLink="/return" mat-button>
-            <mat-icon>undo</mat-icon>
-            Visszahozás
+          <button routerLink="/return-cassette-list" mat-menu-item>
+            <mat-icon>library_music</mat-icon>
+            Visszahozott kazetták
           </button>
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-drawer>
-    <mat-drawer-content>
-        <div style="text-align: center; min-height: 100vh;">
-            <router-outlet/>
-        </div>    
-    </mat-drawer-content>
+          <button routerLink="/return-dvd-list" mat-menu-item>
+            <mat-icon>ondemand_video</mat-icon>
+            Visszahozott DVD-k
+          </button>
+        </mat-menu>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="text-align: center; min-height: 100vh;">
+      <router-outlet/>
+    </div>
+  </mat-drawer-content>
 </mat-drawer-container>
-  
-  

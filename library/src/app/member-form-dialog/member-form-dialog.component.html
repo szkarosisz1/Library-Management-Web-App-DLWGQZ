@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>{{ dialogTitle }}</h1>
+<div mat-dialog-content [formGroup]="memberForm">
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Név</mat-label>
+        <input matInput placeholder="Tag neve" formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Telefonszám</mat-label>
+        <input matInput placeholder="Telefonszám" formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Személyigazolvány szám</mat-label>
+        <input matInput placeholder="Személyigazolvány szám" formControlName="idCardNumber">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Lakcím</mat-label>
+        <input matInput placeholder="Lakcím" formControlName="address">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Státusz</mat-label>
+        <mat-select placeholder="Státusz" formControlName="status">
+            <mat-option value="Aktív">Aktív</mat-option>
+            <mat-option value="Passzív">Passzív</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close style="width: 10vh;" (click)="cancel()">Mégse</button>
+    <button mat-raised-button color="primary" style="margin-left: 2vh; width: 10vh;" (click)="save()">{{ actionBtn }}</button>
+</div>

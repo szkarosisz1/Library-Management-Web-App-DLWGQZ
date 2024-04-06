@@ -2,9 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Borrow } from './Borrow';
 
 export enum StatusMember {
-  active = 'aktív',
-  inactive = 'passzív',
-  other = 'egyéb'
+  active = 'Aktív',
+  inactive = 'Passzív'
 }
 
 @Entity()
@@ -25,7 +24,7 @@ export class Member {
     unique: true,
     length: 8
   })
-  identityNumber: string; //személyigazolvány
+  idCardNumber: string;
 
   @Column()
   address: string;
@@ -33,7 +32,7 @@ export class Member {
   @Column({
     type: 'enum',
     enum: StatusMember,
-    default: StatusMember.other
+    default: StatusMember.active
     })
   status: string;
 

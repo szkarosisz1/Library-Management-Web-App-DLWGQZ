@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
+import { Component} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { BorrowDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { CassetteDTO } from '../../../model/library.dto';
+import { CassetteService } from '../service/cassette.service';
+import { MatDivider } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-borrow',
+  selector: 'app-cassette-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,40 +23,40 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     MatIconModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
-  templateUrl: './borrow.component.html',
-  styleUrl: './borrow.component.css'
+  templateUrl: './cassette-list.component.html',
+  styleUrl: './cassette-list.component.css'
 })
-export class BorrowComponent {
-  borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'book', 'cassette', 'dvd'];
+export class CassetteListComponent {
+  cassettes: CassetteDTO[] = [];
+  displayedColumns: string[] = ['title', 'author', 'acquisitionDate', 'serialNumber', 'status'];
 
-  constructor(private borrowService: BorrowService, private spinner: NgxSpinnerService) { }
+  constructor(private cassetteService: CassetteService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.loadBorrows();
+    this.loadCassettes();
   }
 
   refresh(): void {
     this.spinner.show();
 
     setTimeout(() => {
-      this.loadBorrows();
+      this.loadCassettes();
       this.spinner.hide();
       location.reload();
     }, 1000);
   }
 
-  loadBorrows(): void {
-    this.borrowService.getAll().subscribe({
-      next: (borrows) => {
-        this.borrows = borrows;
+  loadCassettes(): void {
+    this.cassetteService.getAll().subscribe({
+      next: (cassettes) => {
+        this.cassettes = cassettes;
       },
       error: (err) => {
         console.log(err);
       }
-    });
+    });	
   }
 
 }

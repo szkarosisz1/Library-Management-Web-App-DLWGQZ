@@ -15,15 +15,15 @@ export class Borrow {
   @Column()
   returnDate: Date;
 
-  @ManyToOne(() => Member, member => member.borrows)
+  @ManyToOne(() => Member, member => member.borrows, {eager: true})
   member: Member;
 
-  @ManyToOne(() => Book, book => book.borrows)
+  @ManyToOne(() => Book, book => book.borrows, {eager: true})
   book: Book;
 
-  @ManyToOne(() => Cassette, cassette => cassette.borrows)
+  @ManyToOne(() => Cassette, cassette => cassette.borrows, {eager: true})
   cassette: Cassette;
 
-  @ManyToOne(() => DVD, dvd => dvd.borrows)
+  @ManyToOne(() => DVD, dvd => dvd.borrows, {eager: true})
   dvd: DVD;
 }

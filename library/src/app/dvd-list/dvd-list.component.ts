@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
+import { Component} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { BorrowDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { DVDDTO } from '../../../model/library.dto';
+import { DvdService } from '../service/dvd.service';
+import { MatDivider } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-borrow',
+  selector: 'app-dvd-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,33 +25,33 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     HttpClientModule,
     NgxSpinnerModule
   ],
-  templateUrl: './borrow.component.html',
-  styleUrl: './borrow.component.css'
+  templateUrl: './dvd-list.component.html',
+  styleUrl: './dvd-list.component.css'
 })
-export class BorrowComponent {
-  borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'book', 'cassette', 'dvd'];
+export class DvdListComponent {
+  dvds: DVDDTO[] = [];
+  displayedColumns: string[] = ['title', 'author', 'acquisitionDate', 'serialNumber', 'status'];
 
-  constructor(private borrowService: BorrowService, private spinner: NgxSpinnerService) { }
+  constructor(private dvdService: DvdService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.loadBorrows();
+    this.loadDVDs();
   }
 
   refresh(): void {
     this.spinner.show();
 
     setTimeout(() => {
-      this.loadBorrows();
+      this.loadDVDs();
       this.spinner.hide();
       location.reload();
     }, 1000);
   }
 
-  loadBorrows(): void {
-    this.borrowService.getAll().subscribe({
-      next: (borrows) => {
-        this.borrows = borrows;
+  loadDVDs(): void {
+    this.dvdService.getAll().subscribe({
+      next: (dvds) => {
+        this.dvds = dvds;
       },
       error: (err) => {
         console.log(err);

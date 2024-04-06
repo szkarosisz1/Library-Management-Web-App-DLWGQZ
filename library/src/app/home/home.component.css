@@ -6,7 +6,7 @@
   }
   
 .slide-in {
-    animation: slideInOut 0.3s ease-out; /* Animáció alkalmazása */
+    animation: slideInOut 0.4s ease-out; /* Animáció alkalmazása */
 }
   
 @keyframes slideInOut {

@@ -1,4 +1,4 @@
-export type StatusType = 'szabad' | 'kikölcsönzött' | 'selejtezett' |  'egyéb';
+export type StatusType = 'szabad' | 'kikölcsönzött' | 'selejtezett' | 'egyéb';
 export type StatusMemberType = 'aktív' | 'passzív' | 'egyéb';
 
 export interface BookDTO {
@@ -15,7 +15,7 @@ export interface BorrowDTO {
     id: number;
     borrowDate: Date;
     returnDate: Date;
-    member: MemberDTO;
+    member: null | MemberDTO;
     book: null | BookDTO;
     cassette: null | CassetteDTO;
     dvd: null | DVDDTO;

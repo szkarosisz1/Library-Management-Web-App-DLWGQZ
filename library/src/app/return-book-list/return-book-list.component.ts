@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-borrow',
+  selector: 'app-return-book-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,12 +25,12 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     HttpClientModule,
     NgxSpinnerModule
   ],
-  templateUrl: './borrow.component.html',
-  styleUrl: './borrow.component.css'
+  templateUrl: './return-book-list.component.html',
+  styleUrl: './return-book-list.component.css'
 })
-export class BorrowComponent {
+export class ReturnBookListComponent {
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'book', 'cassette', 'dvd'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'book'];
 
   constructor(private borrowService: BorrowService, private spinner: NgxSpinnerService) { }
 
@@ -51,12 +51,11 @@ export class BorrowComponent {
   loadBorrows(): void {
     this.borrowService.getAll().subscribe({
       next: (borrows) => {
-        this.borrows = borrows;
+        this.borrows = borrows.filter(borrow => borrow.returnDate != null);
       },
       error: (err) => {
         console.log(err);
       }
     });
   }
-
 }

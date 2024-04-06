@@ -4,7 +4,12 @@ import { BookDTO } from '../../../model/library.dto';
 import { MatTableModule } from "@angular/material/table";
 import { BookService } from '../service/book.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-book-list',
@@ -12,7 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     MatTableModule,
-    HttpClientModule
+    MatDivider,
+    MatButtonModule,
+    MatToolbar,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css'
@@ -22,10 +33,20 @@ export class BookListComponent implements OnInit {
   books: BookDTO[] = [];
   displayedColumns: string[] = ['title', 'author', 'acquisitionDate', 'serialNumber', 'status'];
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.loadBooks();
+  }
+
+  refresh(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.loadBooks();
+      this.spinner.hide();
+      location.reload();
+    }, 1000);
   }
 
   loadBooks(): void {
@@ -36,7 +57,7 @@ export class BookListComponent implements OnInit {
       error: (err) => {
         console.log(err);
       }
-    })
+    });
   }
-  
+
 }

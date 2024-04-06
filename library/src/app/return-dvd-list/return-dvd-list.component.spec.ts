@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReturnComponent } from './return.component';
+import { ReturnDvdListComponent } from './return-dvd-list.component';
 
-describe('ReturnComponent', () => {
-  let component: ReturnComponent;
-  let fixture: ComponentFixture<ReturnComponent>;
+describe('ReturnDvdListComponent', () => {
+  let component: ReturnDvdListComponent;
+  let fixture: ComponentFixture<ReturnDvdListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReturnComponent]
+      imports: [ReturnDvdListComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ReturnComponent);
+    fixture = TestBed.createComponent(ReturnDvdListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

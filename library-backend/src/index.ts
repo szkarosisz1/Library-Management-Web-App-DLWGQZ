@@ -1,12 +1,18 @@
 import { AppDataSource } from "./data-source";
 import { getRoutes } from "./routes";
 import express from 'express';
+import cors from 'cors'
 
 async function main() {
   try {
     await AppDataSource.initialize();
 
     const app = express();
+
+    app.use(cors({
+      origin: 'http://localhost:4200',
+      credentials: true
+    }))
 
     app.use(express.json());
    
@@ -22,3 +28,4 @@ async function main() {
 } 
 
 main();
+

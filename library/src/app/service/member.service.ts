@@ -22,11 +22,11 @@ export class MemberService {
     return this.http.post<MemberDTO>(apiUrl.ServiceApi + 'member', member);
   }
 
-  update(member: MemberDTO){
-    return this.http.put<MemberDTO>(apiUrl.ServiceApi + 'member', member);
+  update(id: number, member: MemberDTO) {
+    return this.http.put<MemberDTO>(apiUrl.ServiceApi + 'member/' + id, member);
   }
 
   delete(id: number) {
-    return this.http.delete<MemberDTO>(apiUrl.ServiceApi + 'member/' + id);
-  }
+    return this.http.put<MemberDTO>(apiUrl.ServiceApi + 'member/' + id + '/status', { status: 'Passzív' });
+}
 }
