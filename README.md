@@ -8,12 +8,7 @@
 
 ## Alkalmazás indítása
 
-### Frontend indítása:
-```bash
-npm run start:client
-```
-### Backend indítása:
-```bash
-npm run start:server
-```
+### Frontend indítása: `npm run start:client`
+
+### Backend indítása: `npm run start:server`
 
