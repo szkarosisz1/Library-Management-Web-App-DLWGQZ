@@ -8,7 +8,6 @@
 
 ## Alkalmazás indítása
 
-### Frontend indítása: `npm run start:client`
-
-### Backend indítása: `npm run start:server`
+- Frontend indítása: `npm run start:client`
+- Backend indítása: `npm run start:server`
 
