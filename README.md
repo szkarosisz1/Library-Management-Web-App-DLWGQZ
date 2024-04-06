@@ -1,11 +1,17 @@
 # Library-Management-Web-App-DLWGQZ
 
 Név: Szkárosi Szilárd
-
 Neptunkód: DLWGQZ
-
 Szak: Mérnökinformatikus BSc
+Feladat sorszáma: 2 (Könyvtári nyilvántartás)
 
-Feladat sorszáma: 2
+# Alkalmazás indítása
 
-Téma: Könyvtári nyilvántartás
+Frontend indítása:
+```bash
+npm run start:client
+
+Backend indítása:
+```bash
+npm run start:server
+
