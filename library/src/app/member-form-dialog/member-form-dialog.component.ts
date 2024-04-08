@@ -33,6 +33,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class MemberFormDialogComponent {
   actionBtn: string;
   dialogTitle: string;
+  status: string[] = [
+    'Aktív',
+    'Passzív'
+  ];
 
   memberForm = this.formBuilder.group({
     name: ['', Validators.required],

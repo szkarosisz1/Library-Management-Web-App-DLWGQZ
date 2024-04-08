@@ -14,6 +14,10 @@ export class MemberService {
     return this.http.get<MemberDTO[]>(apiUrl.ServiceApi + 'member');
   }
 
+  getAllFilteredBy(json: any){
+    return this.http.get<MemberDTO[]>(apiUrl.ServiceApi + 'member/filteredBy', { params: json });
+  }
+
   getOne(id: number) {
     return this.http.get<MemberDTO>(apiUrl.ServiceApi + 'member/' + id);
   }

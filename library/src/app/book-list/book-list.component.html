@@ -8,10 +8,21 @@
         <h1>Könyvek listája</h1>
     </mat-toolbar>
     <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
+    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 140vh; width: 20vh;">
+        <mat-icon>add</mat-icon> Új könyv hozzáadása
+    </button>
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
         <p style="color: white">Könyvek betöltése...</p>
     </ngx-spinner>
+    <mat-form-field appearance="fill" style="width: 50vh;">
+        <mat-label>Tag keresése</mat-label>
+        <input matInput (keyup)="filterChange($event)" placeholder="Tag keresése">
+    </mat-form-field>
     <mat-table class="mat-elevation-z8" [dataSource]="books">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.id }}</mat-cell>
+        </ng-container>
         <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef>Cím</mat-header-cell>
             <mat-cell *matCellDef="let book">{{ book.title }}</mat-cell>
@@ -31,6 +42,17 @@
         <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef>Státusz</mat-header-cell>
             <mat-cell *matCellDef="let book">{{ book.status }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
+            <mat-cell *matCellDef="let member">
+                <button mat-icon-button matTooltip="Módosítás" (click)="editBook(member)">
+                    <mat-icon color="primary">edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Törlés">
+                    <mat-icon color="warn">delete</mat-icon>
+                </button>
+            </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

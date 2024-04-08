@@ -45,7 +45,7 @@ export interface MemberDTO {
     id: number;
     name: string;
     phoneNumber: string;
-    identityNumber: string;
+    idCardNumber: string;
     address: string; 
     status: string;
     borrows: BorrowDTO[];

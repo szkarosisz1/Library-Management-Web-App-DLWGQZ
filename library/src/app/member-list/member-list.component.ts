@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MemberDTO } from '../../../model/library.dto';
 import { MemberService } from '../service/member.service';
@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MemberFormDialogComponent } from '../member-form-dialog/member-form-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-member-list',
@@ -32,9 +33,10 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     MatFormFieldModule,
     HttpClientModule,
     NgxSpinnerModule,
-    MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatPaginator,
+    MatPaginatorModule,
     MemberFormDialogComponent,
     ToastrModule
   ],
@@ -47,6 +49,8 @@ export class MemberListComponent {
   dataSource: MatTableDataSource<MemberDTO> = new MatTableDataSource<MemberDTO>();
   event: any;
   member: any;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private memberService: MemberService, 
@@ -80,6 +84,10 @@ export class MemberListComponent {
     this.loadMembers();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   refresh(): void {
     this.spinner.show();
 
@@ -91,16 +99,22 @@ export class MemberListComponent {
   }
 
   loadMembers(): void {
+    this.spinner.show();
+  
     this.memberService.getAll().subscribe({
       next: (members) => {
         this.members = members;
+        this.dataSource = new MatTableDataSource<MemberDTO>(this.members);
+        this.dataSource.paginator = this.paginator;
+        this.spinner.hide();
       },
       error: (err) => {
         console.log(err);
+        this.spinner.hide();
       }
-    })
+    });
   }
-
+  
   editMember(member: MemberDTO) {
     this.openDialog(member);
   }
@@ -127,8 +141,13 @@ export class MemberListComponent {
     });
   }
 
-  applyFilter(event: KeyboardEvent) {
+  filterChange(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+
 }

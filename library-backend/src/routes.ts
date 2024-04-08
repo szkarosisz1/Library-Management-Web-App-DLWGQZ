@@ -1,9 +1,9 @@
 import express from 'express';
-import { BookController } from './Controller/book.controller';
-import { BorrowController } from './Controller/borrow.controller';
-import { CassetteController } from './Controller/cassette.controller';
-import { DvdController } from './Controller/dvd.controller';
-import { MemberController } from './Controller/member.controller';
+import { BookController } from './controller/book.controller';
+import { BorrowController } from './controller/borrow.controller';
+import { CassetteController } from './controller/cassette.controller';
+import { DvdController } from './controller/dvd.controller';
+import { MemberController } from './controller/member.controller';
 
 
 export function getRoutes(): express.Router{
@@ -40,6 +40,7 @@ export function getRoutes(): express.Router{
     router.delete('/dvd/:id', dvdController.delete);
 
     router.get('/member', memberController.getAll);
+    router.get('/member/filteredBy', memberController.getAllFiltered);
     router.get('/member/:id', memberController.getOne);
     router.post('/member', memberController.create);
     router.put('/member/:id', memberController.update);

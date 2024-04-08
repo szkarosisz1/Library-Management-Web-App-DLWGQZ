@@ -13,6 +13,16 @@ export abstract class Controller {
         }
     };
 
+    getAllFiltered = async (req:Request, res:Response) => {
+        try {
+            const filterParams = req.query;
+            const entities = await this.repository.find({where: filterParams});
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+     };
+
     getOne = async (req:Request, res:Response) => {
         try {
             const id = req.params.id;
