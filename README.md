@@ -1,11 +1,13 @@
-# Library-Management-Web-App-DLWGQZ
+# Library Management Web App (DLWGQZ)
 
-Név: Szkárosi Szilárd
+## Információk:
+- **Név:** Szkárosi Szilárd
+- **Neptunkód:** DLWGQZ
+- **Szak:** Mérnökinformatikus BSc
+- **Feladat sorszáma:** 2 (Könyvtári nyilvántartás)
 
-Neptunkód: DLWGQZ
+## Alkalmazás indítása
 
-Szak: Mérnökinformatikus BSc
+- Frontend indítása: `npm run start:client`
+- Backend indítása: `npm run start:server`
 
-Feladat sorszáma: 2
-
-Téma: Könyvtári nyilvántartás
