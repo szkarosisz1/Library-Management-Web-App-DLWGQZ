@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BookDTO } from '../../../model/library.dto';
 import { apiUrl } from '../api.url';
 
@@ -8,7 +8,7 @@ import { apiUrl } from '../api.url';
 })
 export class BookService {
 
-  http = inject(HttpClient);
+  constructor(private http: HttpClient) { }
 
   getAll() {
     return this.http.get<BookDTO[]>(apiUrl.ServiceApi + 'book');
@@ -22,11 +22,11 @@ export class BookService {
     return this.http.post<BookDTO>(apiUrl.ServiceApi + 'book', book);
   }
 
-  update(book: BookDTO){
-    return this.http.post<BookDTO>(apiUrl.ServiceApi + 'book', book);
+  update(id: number, book: BookDTO){
+    return this.http.put<BookDTO>(apiUrl.ServiceApi + 'book/' + id, book);
   }
 
   delete(id: number) {
-    return this.http.delete<BookDTO>(apiUrl.ServiceApi + 'book/' + id);
+    return this.http.put<BookDTO>(apiUrl.ServiceApi + 'book/' + id + '/status', { status: 'Szabad' });
   }
 }

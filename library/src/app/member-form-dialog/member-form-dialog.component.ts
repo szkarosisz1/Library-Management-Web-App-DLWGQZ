@@ -61,7 +61,7 @@ export class MemberFormDialogComponent {
 
   updateButtonTitle() {
     this.actionBtn = this.data ? "Módosítás" : "Mentés";
-    this.dialogTitle = this.data ? 'Tag módosítása' : 'Új tag hozzáadása';
+    this.dialogTitle = this.data ? 'Tag módosítása' : 'Tag hozzáadása';
     if (this.data) {
       this.memberForm.patchValue(this.data);
     }

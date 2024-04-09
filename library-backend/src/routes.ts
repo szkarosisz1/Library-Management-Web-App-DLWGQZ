@@ -5,7 +5,6 @@ import { CassetteController } from './controller/cassette.controller';
 import { DvdController } from './controller/dvd.controller';
 import { MemberController } from './controller/member.controller';
 
-
 export function getRoutes(): express.Router{
     const router = express.Router();
 
@@ -18,7 +17,8 @@ export function getRoutes(): express.Router{
     router.get('/book', bookController.getAll);
     router.get('/book/:id', bookController.getOne);
     router.post('/book', bookController.create);
-    router.put('/book', bookController.update);
+    router.put('/book/:id', bookController.update);
+    router.put('/book/:id/status', bookController.update);
     router.delete('/book/:id', bookController.delete);
 
     router.get('/borrow', borrowController.getAll);
@@ -30,17 +30,18 @@ export function getRoutes(): express.Router{
     router.get('/cassette', cassetteController.getAll);
     router.get('/cassette/:id', cassetteController.getOne);
     router.post('/cassette', cassetteController.create);
-    router.put('/cassette', cassetteController.update);
+    router.put('/cassette/:id', cassetteController.update);
+    router.put('/cassette/:id/status', cassetteController.update);
     router.delete('/cassette/:id', cassetteController.delete);
 
     router.get('/dvd', dvdController.getAll);
     router.get('/dvd/:id', dvdController.getOne);
     router.post('/dvd', dvdController.create);
-    router.put('/dvd', dvdController.update);
+    router.put('/dvd/:id', dvdController.update);
+    router.put('/dvd/:id/status', dvdController.update);
     router.delete('/dvd/:id', dvdController.delete);
 
     router.get('/member', memberController.getAll);
-    router.get('/member/filteredBy', memberController.getAllFiltered);
     router.get('/member/:id', memberController.getOne);
     router.post('/member', memberController.create);
     router.put('/member/:id', memberController.update);

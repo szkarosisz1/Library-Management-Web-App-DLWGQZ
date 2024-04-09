@@ -32,5 +32,5 @@ export class MemberService {
 
   delete(id: number) {
     return this.http.put<MemberDTO>(apiUrl.ServiceApi + 'member/' + id + '/status', { status: 'Passzív' });
-}
+  }
 }

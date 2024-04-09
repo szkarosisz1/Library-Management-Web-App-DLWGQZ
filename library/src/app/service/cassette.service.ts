@@ -22,11 +22,11 @@ export class CassetteService {
     return this.http.post<CassetteDTO>(apiUrl.ServiceApi + 'cassette', cassette);
   }
 
-  update(cassette: CassetteDTO){
-    return this.http.put<CassetteDTO>(apiUrl.ServiceApi + 'cassette', cassette);
+  update(id: number, cassette: CassetteDTO){
+    return this.http.put<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id, cassette);
   }
 
   delete(id: number) {
-    return this.http.delete<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id);
+    return this.http.put<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id + '/status', { status: 'Szabad' });
   }
 }

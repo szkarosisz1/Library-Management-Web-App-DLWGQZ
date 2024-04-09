@@ -1,38 +1,64 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
 <div class="container" style="width: 150vh; margin: 0 auto;">
   <mat-toolbar color="primary">
-    <button mat-flat-button color="primary" (click)="refresh()" style="height: 5vh;">
+    <button mat-flat-button color="primary" (click)="refresh()">
         <mat-icon>refresh</mat-icon> Oldal frissítése
       </button>
     <span style="flex: 1 1 auto;"></span>
     <h1>DVD-k listája</h1>
   </mat-toolbar>
-  <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
+  <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+  <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;">
+    <mat-icon>add</mat-icon>DVD hozzáadása
+</button>
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
     <p style="color: white">DVD-k betöltése...</p>
   </ngx-spinner>
-    <mat-table class="mat-elevation-z8" [dataSource]="dvds">
-      <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef>Cím</mat-header-cell>
-        <mat-cell *matCellDef="let dvd">{{ dvd.title }}</mat-cell>
+  <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
+    <mat-label>DVD keresése</mat-label>
+    <input matInput (keyup)="filterChange($event)" placeholder="DVD keresése">
+  </mat-form-field>
+<mat-divider [vertical]="true"></mat-divider>
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let book">{{ book.id }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="author">
-        <mat-header-cell *matHeaderCellDef>Szerző</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Szerző</mat-header-cell>
         <mat-cell *matCellDef="let dvd">{{ dvd.author }}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Cím</mat-header-cell>
+        <mat-cell *matCellDef="let dvd">{{ dvd.title }}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="acquisitionDate">
-        <mat-header-cell *matHeaderCellDef>Beszerzés dátuma</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Beszerzés dátuma</mat-header-cell>
         <mat-cell *matCellDef="let dvd">{{ dvd.acquisitionDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="serialNumber">
-        <mat-header-cell *matHeaderCellDef>Szériaszám</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Szériaszám</mat-header-cell>
         <mat-cell *matCellDef="let dvd">{{ dvd.serialNumber }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Státusz</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Státusz</mat-header-cell>
         <mat-cell *matCellDef="let dvd">{{ dvd.status }}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
+        <mat-cell *matCellDef="let dvd">
+            <button mat-icon-button matTooltip="Módosítás" (click)="editDVD(dvd)">
+                <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Törlés" (click)="deleteDVD(dvd.id)">
+                <mat-icon color="warn">delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>     
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 12]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

@@ -17,6 +17,8 @@ import { MemberFormDialogComponent } from '../member-form-dialog/member-form-dia
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-member-list',
@@ -37,6 +39,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
     MatDialogModule,
     MatPaginator,
     MatPaginatorModule,
+    MatSort,
+    MatSortModule,
     MemberFormDialogComponent,
     ToastrModule
   ],
@@ -45,17 +49,19 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 })
 export class MemberListComponent {
   members: MemberDTO[] = [];
-  displayedColumns: string[] = ['id', 'name', 'phoneNumber', 'identityNumber', 'address', 'status', 'actions'];
-  dataSource: MatTableDataSource<MemberDTO> = new MatTableDataSource<MemberDTO>();
+  displayedColumns: string[] = ['id', 'name', 'phoneNumber', 'idCardNumber', 'address', 'status', 'actions'];
+  dataSource: MatTableDataSource<MemberDTO> = new MatTableDataSource<MemberDTO>(this.members);
   event: any;
   member: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private memberService: MemberService, 
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService, 
+    private _liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog
     ) { }
 
@@ -86,6 +92,7 @@ export class MemberListComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   refresh(): void {
@@ -106,6 +113,7 @@ export class MemberListComponent {
         this.members = members;
         this.dataSource = new MatTableDataSource<MemberDTO>(this.members);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         this.spinner.hide();
       },
       error: (err) => {
@@ -150,4 +158,11 @@ export class MemberListComponent {
     }
   }
 
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 }

@@ -22,11 +22,11 @@ export class DvdService {
     return this.http.post<DVDDTO>(apiUrl.ServiceApi + 'dvd', dvd);
   }
 
-  update(dvd: DVDDTO){
-    return this.http.put<DVDDTO>(apiUrl.ServiceApi + 'dvd', dvd);
+  update(id: number, cassette: DVDDTO){
+    return this.http.put<DVDDTO>(apiUrl.ServiceApi + 'dvd/' + id, cassette);
   }
 
   delete(id: number) {
-    return this.http.delete<DVDDTO>(apiUrl.ServiceApi + 'dvd/' + id);
+    return this.http.put<DVDDTO>(apiUrl.ServiceApi + 'dvd/' + id + '/status', { status: 'Szabad' });
   }
 }
