@@ -1,10 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { BorrowDTO, CassetteDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Component, ViewChild } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+import { BorrowDTO } from '../../../model/library.dto';
+import { BorrowService } from '../service/borrow.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
-  selector: 'app-return-cassette-list',
+  selector: 'app-delayed-book-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -39,13 +39,14 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
     BookFormDialogComponent,
     ToastrModule
   ],
-  templateUrl: './return-cassette-list.component.html',
-  styleUrl: './return-cassette-list.component.css'
+  templateUrl: './delayed-book-list.component.html',
+  styleUrl: './delayed-book-list.component.css'
 })
-export class ReturnCassetteListComponent {
+export class DelayedBookListComponent {
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'cassette'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'book', 'delay'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
+
   event: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -81,29 +82,20 @@ export class ReturnCassetteListComponent {
   loadBorrows(): void {
     this.spinner.show();
     this.borrowService.getAll().subscribe({
-      next: (borrows) => {
-        this.borrows = borrows.filter(borrow => borrow.returnDate && borrow.cassette != null);
-        this.dataSource = new MatTableDataSource<BorrowDTO>(this.borrows);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.spinner.hide();
-      },
-      error: (err) => {
-        console.log(err);
-        this.spinner.hide();
-      }
+        next: (borrows) => {
+          this.borrows = borrows.filter(borrow => borrow.returnDate && borrow.book != null);
+            this.dataSource = new MatTableDataSource<BorrowDTO>(this.borrows);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.spinner.hide();
+        },
+        error: (err) => {
+            console.log(err);
+            this.spinner.hide();
+        }
     });
   }
 
-  filterChange(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-
-  }
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
@@ -111,6 +103,13 @@ export class ReturnCassetteListComponent {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-    
   }
+
+  calculateDelay(borrow: BorrowDTO): number {
+    const expectedReturnDate = new Date(borrow.returnDate);
+    const returnDate = new Date();
+    const delayMilliseconds = returnDate.getTime() - expectedReturnDate.getTime();
+    return Math.floor(delayMilliseconds / (1000 * 60 * 60 * 24));
+  }
+
 }

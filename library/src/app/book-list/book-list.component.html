@@ -1,61 +1,69 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+
 <div class="container" style="width: 150vh; margin: 0 auto;">
+
     <mat-toolbar color="primary">
-        <button mat-flat-button color="primary" (click)="refresh()">
-            <mat-icon>refresh</mat-icon> Oldal frissítése
-          </button>
+        <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
         <span style="flex: 1 1 auto;"></span>
         <h1>Könyvek listája</h1>
     </mat-toolbar>
+
     <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
-    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;">
-        <mat-icon>add</mat-icon>Könyv hozzáadása
-    </button>
+
+    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;"><mat-icon>add</mat-icon>Könyv hozzáadása</button>
+
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
         <p style="color: white">Könyvek betöltése...</p>
     </ngx-spinner>
+
     <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
         <mat-label>Könyv keresése</mat-label>
         <input matInput (keyup)="filterChange($event)" placeholder="Könyv keresése">
     </mat-form-field>
+
 <mat-divider [vertical]="true"></mat-divider>
+
     <div class="mat-elevation-z8">
+
         <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.id }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="author">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Szerző</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.author }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Cím</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.title }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="acquisitionDate">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Beszerzés dátuma</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.acquisitionDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="serialNumber">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ISBN szám</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.serialNumber }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Státusz</mat-header-cell>
                 <mat-cell *matCellDef="let book">{{ book.status }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
                 <mat-cell *matCellDef="let book">
-                    <button mat-icon-button matTooltip="Módosítás" (click)="editBook(book)">
-                        <mat-icon color="primary">edit</mat-icon>
-                    </button>
-                    <button mat-icon-button matTooltip="Törlés" (click)="deleteBook(book.id)">
-                        <mat-icon color="warn">delete</mat-icon>
-                    </button>
+                    <button mat-icon-button matTooltip="Módosítás" (click)="editBook(book)"><mat-icon color="primary">edit</mat-icon></button>
+                    <button mat-icon-button matTooltip="Törlés" (click)="deleteBook(book.id)"><mat-icon color="warn">delete</mat-icon></button>
                 </mat-cell>
             </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>

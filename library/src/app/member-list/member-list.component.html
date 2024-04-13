@@ -1,64 +1,73 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
-<div class="container" style="width: 150vh; margin: 0 auto;">
+
+<div class="container" style="width: 70vw; margin: 0 auto;">
+
     <mat-toolbar color="primary">
-        <button mat-flat-button color="primary" (click)="refresh()">
-            <mat-icon>refresh</mat-icon> Oldal frissítése
-          </button>
+        <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
         <span style="flex: 1 1 auto;"></span>
-        <h1>Tagok listája</h1>
+        <h1>Tagok nyilvántartása</h1>
     </mat-toolbar>
+
     <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
-    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;">
-        <mat-icon>add</mat-icon> Tag hozzáadása
-    </button>
+
+    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;"><mat-icon>add</mat-icon>Tag hozzáadása</button>
+
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
         <p style="color: white">Tagok betöltése...</p>
     </ngx-spinner>
+
     <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
         <mat-label>Tag keresése</mat-label>
         <input matInput (keyup)="filterChange($event)" placeholder="Tag keresése">
     </mat-form-field>
+
 <mat-divider [vertical]="true"></mat-divider>
+
     <div class="mat-elevation-z10">
         <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
                 <mat-cell *matCellDef="let member">{{ member.id }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Név</mat-header-cell>
                 <mat-cell *matCellDef="let member" >{{ member.name }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="phoneNumber">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Telefonszám</mat-header-cell>
                 <mat-cell *matCellDef="let member">{{ member.phoneNumber }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="idCardNumber">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Személyigazolvány</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Személyig. szám</mat-header-cell>
                 <mat-cell *matCellDef="let member">{{ member.idCardNumber }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="address">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Lakcím</mat-header-cell>
                 <mat-cell *matCellDef="let member">{{ member.address }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Státusz</mat-header-cell>
                 <mat-cell *matCellDef="let member">{{ member.status }}</mat-cell>
             </ng-container>
+
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
                 <mat-cell *matCellDef="let member">
-                    <button mat-icon-button matTooltip="Módosítás" (click)="editMember(member)">
-                        <mat-icon color="primary">edit</mat-icon>
-                    </button>
-                    <button mat-icon-button matTooltip="Törlés" (click)="deleteMember(member.id)">
-                        <mat-icon color="warn">delete</mat-icon>
-                    </button>
+                    <button mat-icon-button matTooltip="Módosítás" (click)="editMember(member)"><mat-icon color="primary">edit</mat-icon></button>
+                    <button mat-icon-button matTooltip="Törlés" (click)="deleteMember(member.id)"><mat-icon color="warn">delete</mat-icon></button>
                 </mat-cell>
-            </ng-container>            
+            </ng-container>  
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>    
+
         </mat-table>
+
         <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 12]" showFirstLastButtons></mat-paginator>
     </div>
 </div>

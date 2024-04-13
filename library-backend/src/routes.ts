@@ -24,8 +24,8 @@ export function getRoutes(): express.Router{
     router.get('/borrow', borrowController.getAll);
     router.get('/borrow/:id', borrowController.getOne);
     router.post('/borrow', borrowController.create);
-    router.put('/borrow', borrowController.update);
-    router.delete('/borrow', borrowController.delete);
+    router.put('/borrow/:id', borrowController.update);
+    router.delete('/borrow/:id', borrowController.delete);
 
     router.get('/cassette', cassetteController.getAll);
     router.get('/cassette/:id', cassetteController.getOne);

@@ -8,12 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { DVDDTO } from '../../../model/library.dto';
-import { DvdService } from '../service/dvd.service';
+import { BorrowDTO, DVDDTO, MemberDTO } from '../../../model/library.dto';
+import { BorrowService } from '../service/borrow.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-dvd-form-dialog',
+  selector: 'app-borrowed-dvd-form-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,31 +27,26 @@ import { NgxSpinnerService } from 'ngx-spinner';
     ReactiveFormsModule,
     ToastrModule
   ],
-  templateUrl: './dvd-form-dialog.component.html',
-  styleUrl: './dvd-form-dialog.component.css'
+  templateUrl: './borrowed-dvd-form-dialog.component.html',
+  styleUrl: './borrowed-dvd-form-dialog.component.css'
 })
-export class DvdFormDialogComponent {
+export class BorrowedDvdFormDialogComponent {
   actionBtn: string;
   dialogTitle: string;
-  status: string[] = [
-    'Szabad',
-    'Kikölcsönzött',
-    'Selejtezett'
-  ];
+  members: MemberDTO | null = null; 
+  dvds: DVDDTO | null = null;
 
-  dvdForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    author: ['', Validators.required],
-    acquisitionDate: [new Date(), Validators.required],
-    serialNumber: ['', Validators.required],
-    status: ['', Validators.required]
+  borrowForm = this.formBuilder.group({
+    member: [this.members, Validators.required],
+    borrowDate: [new Date(), Validators.required],
+    cassette: [this.dvds, Validators.required]
   });
 
   constructor(
-    public dialogRef: MatDialogRef<DvdFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DVDDTO,
+    public dialogRef: MatDialogRef<BorrowedDvdFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: BorrowDTO,
     private formBuilder: FormBuilder,
-    private dvdService: DvdService,
+    private borrowService: BorrowService,
     private toastrService: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
@@ -62,19 +57,19 @@ export class DvdFormDialogComponent {
 
   updateButtonTitle() {
     this.actionBtn = this.data ? "Módosítás" : "Mentés";
-    this.dialogTitle = this.data ? 'DVD módosítása' : 'DVD hozzáadása';
-    if (this.data) {
-      this.dvdForm.patchValue(this.data);
+    this.dialogTitle = this.data ? 'Kölcsönzés módosítása' : 'Kölcsönzés hozzáadása';
+    if (this.data) { 
+      this.borrowForm.patchValue(this.data);
     }
   }
 
   save() {
-    const dvd = this.dvdForm.value as DVDDTO;
+    const borrow = this.borrowForm.value as BorrowDTO;
     this.spinner.show();
     this.dialogRef.close();
   
     if (!this.data) {
-      this.dvdService.create(dvd).subscribe({
+      this.borrowService.create(borrow).subscribe({
         next: () => {
           this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
           setTimeout(() => {
@@ -92,7 +87,7 @@ export class DvdFormDialogComponent {
         }
       });
     } else {
-      this.dvdService.update(this.data.id, dvd).subscribe({
+      this.borrowService.update(this.data.id, borrow).subscribe({
         next: () => {
           this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
           setTimeout(() => {

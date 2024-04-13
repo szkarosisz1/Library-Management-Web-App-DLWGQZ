@@ -15,11 +15,13 @@ export interface BorrowDTO {
     id: number;
     borrowDate: Date;
     returnDate: Date;
-    member: null | MemberDTO;
-    book: null | BookDTO;
-    cassette: null | CassetteDTO;
-    dvd: null | DVDDTO;
+    member: MemberDTO | null;
+    book: BookDTO | null;
+    cassette: CassetteDTO | null;
+    dvd: DVDDTO | null;
+    delay: number;
 }
+
 
 export interface CassetteDTO {
     id: number;

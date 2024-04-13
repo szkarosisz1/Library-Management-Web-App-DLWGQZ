@@ -26,4 +26,7 @@ export class Borrow {
 
   @ManyToOne(() => DVD, dvd => dvd.borrows, {eager: true})
   dvd: DVD;
+
+  @Column()
+  delay: number;
 }

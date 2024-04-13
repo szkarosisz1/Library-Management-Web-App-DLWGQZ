@@ -1,38 +1,55 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+
 <div class="container" style="width: 150vh; margin: 0 auto;">
+
   <mat-toolbar color="primary">
-    <button mat-flat-button color="primary" (click)="refresh()">
-        <mat-icon>refresh</mat-icon> Oldal frissítése
-      </button>
+    <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
     <span style="flex: 1 1 auto;"></span>
-    <h1>Visszahozott DVD-k listája</h1>
+    <h1>Visszahozott DVD-k</h1>
   </mat-toolbar>
+
   <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
+
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
     <p style="color: white">Visszahozott DVD-k betöltése...</p>
   </ngx-spinner>
-  <mat-table class="mat-elevation-z8" [dataSource]="borrows">
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let borrow">{{ borrow.id }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="borrowDate">
-      <mat-header-cell *matHeaderCellDef>Kölcsönzés dátuma</mat-header-cell>
-      <mat-cell *matCellDef="let borrow">{{ borrow.borrowDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="returnDate">
-      <mat-header-cell *matHeaderCellDef>Visszaadás dátuma</mat-header-cell>
-      <mat-cell *matCellDef="let borrow">{{ borrow.returnDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="member">
-      <mat-header-cell *matHeaderCellDef>Tag neve</mat-header-cell>
-      <mat-cell *matCellDef="let borrow">{{ borrow.member?.name }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="dvd">
-      <mat-header-cell *matHeaderCellDef>Kölcsönzött DVD</mat-header-cell>
-      <mat-cell *matCellDef="let borrow">{{ borrow.dvd?.title }}</mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+
+  <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
+    <mat-label>Visszahozott DVD keresése</mat-label>
+    <input matInput (keyup)="filterChange($event)" placeholder="Vissahozott DVD keresése">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">{{ borrow.id }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="borrowDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Kölcsönzés dátuma</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">{{ borrow.borrowDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="returnDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Visszaadás dátuma</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">{{ borrow.returnDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="member">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tag neve</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">{{ borrow.member?.name }}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="dvd">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Kölcsönzött DVD</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">{{ borrow.dvd?.title }}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 12]" showFirstLastButtons></mat-paginator>
+  </div>
+  
 </div>

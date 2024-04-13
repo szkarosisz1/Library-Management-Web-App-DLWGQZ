@@ -27,6 +27,27 @@ export abstract class Controller {
         }
     };
 
+    getDelays = async (req: Request, res: Response) => {
+        try {
+            const currentDate = new Date();
+            const thirtyDaysAgo = new Date(currentDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+    
+            const delays = await this.repository.createQueryBuilder('borrow')
+                .select(['borrow', 'borrow.delay', 'borrow.returnDate', 'borrow.borrowDate'])
+                .where('borrow.returnDate < :thirtyDaysAgoDate', { thirtyDaysAgoDate: thirtyDaysAgo })
+                .getMany();
+    
+            if (delays && delays.length > 0) {
+                res.status(200).json(delays);
+            } else {
+                res.status(404).json({ error: 'Nincsenek késések.' });
+            }
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+    
+    
     create = async (req:Request, res:Response) => {
         try {
             const entity = this.repository.create(req.body as object);

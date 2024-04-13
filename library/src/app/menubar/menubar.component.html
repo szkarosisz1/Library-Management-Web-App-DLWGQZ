@@ -1,79 +1,67 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-  <button (click)="drawer.toggle()" mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h1 style="margin-right: auto;">Könyvtár nyilvántartó webalkalmazás</h1>
-  <div>
+  <button (click)="drawer.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
+  <h1 style="margin-right: auto;">2. Könyvtári nyilvántartás</h1>
+  <!--<div>
     <button mat-button>Kijelentkezés</button>
-  </div>
+  </div>-->
 </mat-toolbar>
 
 <mat-drawer-container class="mat-drawer-container">
+
   <mat-drawer #drawer opened="true" mode="side" position="start">
+
     <mat-nav-list>
+
       <mat-list-item>
-        <button routerLink="/home" mat-button>
-          <mat-icon>home</mat-icon>
-          Főoldal
-        </button>
+        <button routerLink="/home" mat-button><mat-icon>home</mat-icon>Főoldal</button>
       </mat-list-item>
+
       <mat-list-item>
-        <button routerLink="/member-list" mat-button>
-          <mat-icon>explore</mat-icon>
-          Tagok listái
-        </button>
+        <button routerLink="/member-list" mat-button><mat-icon>explore</mat-icon>Tagnyilvántartás</button>
       </mat-list-item>
+
       <mat-list-item>
-        <button [matMenuTriggerFor]="categoryMenu" mat-button>
-          <mat-icon>assignment</mat-icon>
-          Kategória
-        </button>
+        <button [matMenuTriggerFor]="categoryMenu" mat-button><mat-icon>assignment</mat-icon>Készletnyilvántartás</button>
         <mat-menu #categoryMenu="matMenu">
-          <button routerLink="/book-list" mat-menu-item>
-            <mat-icon>menu_book</mat-icon>
-            Könyv
-          </button>
-          <button routerLink="/cassette-list" mat-menu-item>
-            <mat-icon>library_music</mat-icon>
-            Kazetta
-          </button>
-          <button routerLink="/dvd-list" mat-menu-item>
-            <mat-icon>ondemand_video</mat-icon>
-            DVD
-          </button>
+          <button routerLink="/book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Könyv</button>
+          <button routerLink="/cassette-list" mat-menu-item><mat-icon>library_music</mat-icon>Kazetta</button>
+          <button routerLink="/dvd-list" mat-menu-item><mat-icon>ondemand_video</mat-icon>DVD</button>
         </mat-menu>
       </mat-list-item>
+
       <mat-list-item>
-        <button routerLink="/borrow" mat-button>
-          <mat-icon>attach_money</mat-icon>
-          Kölcsönzés
-        </button>
+        <button [matMenuTriggerFor]="borrowedMenu" mat-button><mat-icon>attach_money</mat-icon>Kölcsönzés</button>
+        <mat-menu #borrowedMenu="matMenu">
+          <button routerLink="/borrowed-book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Kikölcsönzött könyvek</button>
+          <button routerLink="/borrowed-cassette-list" mat-menu-item><mat-icon>library_music</mat-icon>Kikölcsönzött kazetták</button>
+          <button routerLink="/borrowed-dvd-list" mat-menu-item><mat-icon>ondemand_video</mat-icon>Kikölcsönzött DVD-k</button>
+        </mat-menu>
       </mat-list-item>
+
       <mat-list-item>
-        <button [matMenuTriggerFor]="returnMenu" mat-button>
-          <mat-icon>undo</mat-icon>
-          Visszahozás
-        </button>
+        <button [matMenuTriggerFor]="returnMenu" mat-button><mat-icon>undo</mat-icon>Befejezett kölcsönzés</button>
         <mat-menu #returnMenu="matMenu">
-          <button routerLink="/return-book-list" mat-menu-item>
-            <mat-icon>menu_book</mat-icon>
-            Visszahozott könyvek
-          </button>
-          <button routerLink="/return-cassette-list" mat-menu-item>
-            <mat-icon>library_music</mat-icon>
-            Visszahozott kazetták
-          </button>
-          <button routerLink="/return-dvd-list" mat-menu-item>
-            <mat-icon>ondemand_video</mat-icon>
-            Visszahozott DVD-k
-          </button>
+          <button routerLink="/return-book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Visszahozott könyvek</button>
+          <button routerLink="/return-cassette-list" mat-menu-item><mat-icon>library_music</mat-icon>Visszahozott kazetták</button>
+          <button routerLink="/return-dvd-list" mat-menu-item><mat-icon>ondemand_video</mat-icon>Visszahozott DVD-k</button>
         </mat-menu>
       </mat-list-item>
+
+      <mat-list-item>
+        <button [matMenuTriggerFor]="delayedMenu" mat-button><mat-icon>timer</mat-icon>Késések</button>
+        <mat-menu #delayedMenu="matMenu">
+          <button routerLink="/delayed-book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Késések könyvekkel</button>
+        </mat-menu>
+      </mat-list-item>
+
     </mat-nav-list>
+
   </mat-drawer>
+
   <mat-drawer-content>
     <div style="text-align: center; min-height: 100vh;">
       <router-outlet/>
     </div>
   </mat-drawer-content>
+
 </mat-drawer-container>

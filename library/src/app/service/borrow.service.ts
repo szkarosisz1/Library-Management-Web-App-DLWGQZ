@@ -22,8 +22,8 @@ export class BorrowService {
     return this.http.post<BorrowDTO>(apiUrl.ServiceApi + 'borrow', borrow);
   }
 
-  update(borrow: BorrowDTO){
-    return this.http.put<BorrowDTO>(apiUrl.ServiceApi + 'borrow', borrow);
+  update(id: Number, borrow: BorrowDTO){
+    return this.http.put<BorrowDTO>(apiUrl.ServiceApi + 'borrow/' + id, borrow);
   }
 
   delete(id: number) {

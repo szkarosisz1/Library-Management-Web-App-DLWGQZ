@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BorrowComponent } from './borrow.component';
+import { DelayedBookListComponent } from './delayed-book-list.component';
 
-describe('BorrowComponent', () => {
-  let component: BorrowComponent;
-  let fixture: ComponentFixture<BorrowComponent>;
+describe('DelayedBookListComponent', () => {
+  let component: DelayedBookListComponent;
+  let fixture: ComponentFixture<DelayedBookListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BorrowComponent]
+      imports: [DelayedBookListComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BorrowComponent);
+    fixture = TestBed.createComponent(DelayedBookListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
