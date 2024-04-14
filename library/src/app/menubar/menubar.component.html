@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   <button (click)="drawer.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
-  <h1 style="margin-right: auto;">2. Könyvtári nyilvántartás</h1>
+  <h1 style="margin-right: auto;">Könyvtári nyilvántartás</h1>
   <!--<div>
     <button mat-button>Kijelentkezés</button>
   </div>-->
@@ -63,5 +63,8 @@
     <div style="text-align: center; min-height: 100vh;">
       <router-outlet/>
     </div>
+    <mat-toolbar color="primary" class="mat-elevation-z8" style="position: fixed; bottom: 0; width: 100%;">
+      <span style="margin-left: auto; margin-right: auto;">Szkárosi Szilárd - DLWGQZ - Informatikai rendszerek építése - 2024. tavaszi félév - 2. feladat</span>
+    </mat-toolbar>
   </mat-drawer-content>
 </mat-drawer-container>
