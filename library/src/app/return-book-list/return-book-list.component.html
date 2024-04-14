@@ -1,6 +1,6 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
 
-<div class="container" style="width: 150vh; margin: 0 auto;">
+<div class="container" style="width: 70vw; margin: 0 auto;">
 
   <mat-toolbar color="primary">
     <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
@@ -14,7 +14,7 @@
     <p style="color: white">Visszahozott könyvek betöltése...</p>
   </ngx-spinner>
 
-  <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
+  <mat-form-field appearance="fill" style="width: 30vw; margin: 2vh;">
     <mat-label>Visszahozott könyv keresése</mat-label>
     <input matInput (keyup)="filterChange($event)" placeholder="Vissahozott könyv keresése">
   </mat-form-field>

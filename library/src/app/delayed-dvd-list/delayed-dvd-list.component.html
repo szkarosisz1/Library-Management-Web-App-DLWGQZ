@@ -8,7 +8,7 @@
     <h1>Késések DVD-kel</h1>
   </mat-toolbar>
 
-  <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+  <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
       <p style="color: white">Késések betöltése...</p>
@@ -37,7 +37,7 @@
       </ng-container>
 
       <ng-container matColumnDef="dvd">
-        <mat-header-cell *matHeaderCellDef>Könyv címe</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>DVD</mat-header-cell>
         <mat-cell *matCellDef="let borrow">{{ borrow.dvd?.title }}</mat-cell>
       </ng-container>
   

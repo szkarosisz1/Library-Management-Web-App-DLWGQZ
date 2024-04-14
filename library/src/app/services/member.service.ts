@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MemberDTO } from '../../../model/library.dto';
+import { MemberDTO } from '../../../models';
 
 @Injectable({
   providedIn: 'root'

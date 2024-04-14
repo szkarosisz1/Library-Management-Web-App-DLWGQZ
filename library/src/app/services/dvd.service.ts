@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DVDDTO } from '../../../model/library.dto';
+import { DVDDTO } from '../../../models';
 
 @Injectable({
   providedIn: 'root'

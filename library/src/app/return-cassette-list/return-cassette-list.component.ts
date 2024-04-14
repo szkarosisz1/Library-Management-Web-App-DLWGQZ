@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { BorrowDTO, CassetteDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { BorrowDTO, CassetteDTO } from '../../../models';
+import { BorrowService } from '../services/borrow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';

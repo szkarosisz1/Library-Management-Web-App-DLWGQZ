@@ -1,30 +1,27 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
 
-<div class="container" style="width: 150vh; margin: 0 auto;">
+<div class="container" style="width: 70vw; margin: 0 auto;">
 
     <mat-toolbar color="primary">
         <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
         <span style="flex: 1 1 auto;"></span>
-        <h1>Könyvek listája</h1>
+        <h1>Könyvek</h1>
     </mat-toolbar>
 
-    <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+    <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
-    <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;"><mat-icon>add</mat-icon>Könyv hozzáadása</button>
+    <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Könyv hozzáadása</button>
 
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
         <p style="color: white">Könyvek betöltése...</p>
     </ngx-spinner>
 
-    <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
+    <mat-form-field appearance="fill" style="width: 30vw; margin: 2vh;">
         <mat-label>Könyv keresése</mat-label>
         <input matInput (keyup)="filterChange($event)" placeholder="Könyv keresése">
     </mat-form-field>
 
-<mat-divider [vertical]="true"></mat-divider>
-
     <div class="mat-elevation-z8">
-
         <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>

@@ -8,8 +8,7 @@
 
 <mat-drawer-container class="mat-drawer-container">
 
-  <mat-drawer #drawer opened="true" mode="side" position="start">
-
+  <mat-drawer #drawer opened="false" mode="side">
     <mat-nav-list>
 
       <mat-list-item>
@@ -17,11 +16,11 @@
       </mat-list-item>
 
       <mat-list-item>
-        <button routerLink="/member-list" mat-button><mat-icon>explore</mat-icon>Tagnyilvántartás</button>
+        <button routerLink="/member-list" mat-button><mat-icon>explore</mat-icon>Tagok</button>
       </mat-list-item>
 
       <mat-list-item>
-        <button [matMenuTriggerFor]="categoryMenu" mat-button><mat-icon>assignment</mat-icon>Készletnyilvántartás</button>
+        <button [matMenuTriggerFor]="categoryMenu" mat-button><mat-icon>assignment</mat-icon>Készletek</button>
         <mat-menu #categoryMenu="matMenu">
           <button routerLink="/book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Könyv</button>
           <button routerLink="/cassette-list" mat-menu-item><mat-icon>library_music</mat-icon>Kazetta</button>
@@ -65,5 +64,4 @@
       <router-outlet/>
     </div>
   </mat-drawer-content>
-
 </mat-drawer-container>

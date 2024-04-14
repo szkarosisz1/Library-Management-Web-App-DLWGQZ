@@ -3,8 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { BorrowDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { BorrowDTO } from '../../../models';
+import { BorrowService } from '../services/borrow.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,7 +46,7 @@ import { ReturnDvdFormDialogComponent } from '../return-dvd-form-dialog/return-d
 })
 export class ReturnDvdListComponent {
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'dvd'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'dvd', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
   event: any;
 

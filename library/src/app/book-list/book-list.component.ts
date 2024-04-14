@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BookDTO } from '../../../model/library.dto';
+import { BookDTO } from '../../../models';
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { BookService } from '../service/book.service';
+import { BookService } from '../services/book.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';

@@ -3,8 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { BorrowDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { BorrowDTO } from '../../../models';
+import { BorrowService } from '../services/borrow.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -101,7 +101,7 @@ export class BorrowedDvdListComponent {
   
       this.borrowService.getAll().subscribe({
         next: (borrowedDvds) => {
-          this.borrowedDvds = borrowedDvds;
+          this.borrowedDvds = borrowedDvds.filter(borrow => borrow.dvd != null);
           this.dataSource = new MatTableDataSource<BorrowDTO>(this.borrowedDvds);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

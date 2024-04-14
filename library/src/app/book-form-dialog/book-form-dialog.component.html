@@ -1,21 +1,26 @@
 <h1 mat-dialog-title>{{ dialogTitle }}</h1>
+
 <div mat-dialog-content [formGroup]="bookForm">
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Szerző</mat-label>
         <input matInput placeholder="Szerző neve" formControlName="author">
     </mat-form-field>
+
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Cím</mat-label>
         <input matInput placeholder="Könyv címe" formControlName="title">
     </mat-form-field>
+
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Beszerzés dátuma</mat-label>
         <input matInput placeholder="Beszerzés dátuma" formControlName="acquisitionDate">
     </mat-form-field>
+
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>ISBN szám</mat-label>
         <input matInput placeholder="ISBN szám" formControlName="serialNumber">
     </mat-form-field>
+
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Státusz</mat-label>
         <mat-select placeholder="Státusz" formControlName="status">
@@ -25,6 +30,7 @@
         </mat-select>
     </mat-form-field>
 </div>
+
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close style="width: 10vh;" (click)="cancel()">Mégse</button>
     <button mat-raised-button color="primary" style="margin-left: 2vh; width: 10vh;" (click)="save()">{{ actionBtn }}</button>

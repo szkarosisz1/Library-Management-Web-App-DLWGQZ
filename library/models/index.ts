@@ -1,5 +1,13 @@
-export type StatusType = 'szabad' | 'kikölcsönzött' | 'selejtezett' | 'egyéb';
-export type StatusMemberType = 'aktív' | 'passzív' | 'egyéb';
+export enum Status {
+    free = 'Szabad',
+    borrowed = 'Kikölcsönzött',
+    scrapped = 'Selejtezett'
+}
+
+export enum StatusMember {
+    active = 'Aktív',
+    inactive = 'Passzív'
+}
 
 export interface BookDTO {
     id: number;
@@ -7,7 +15,7 @@ export interface BookDTO {
     author: string;
     acquisitionDate: Date;
     serialNumber: string;
-    status: string;
+    status: Status;
     borrows: BorrowDTO[];
 }
 
@@ -29,7 +37,7 @@ export interface CassetteDTO {
     title: string;
     acquisitionDate: Date;
     serialNumber: string;
-    status: string;
+    status: Status;
     borrows: BorrowDTO[];
 }
 
@@ -39,7 +47,7 @@ export interface DVDDTO {
     title: string;
     acquisitionDate: Date;
     serialNumber: string;
-    status: string;
+    status: Status;
     borrows: BorrowDTO[];
 }
 
@@ -49,6 +57,6 @@ export interface MemberDTO {
     phoneNumber: string;
     idCardNumber: string;
     address: string; 
-    status: string;
+    status: StatusMember;
     borrows: BorrowDTO[];
 }

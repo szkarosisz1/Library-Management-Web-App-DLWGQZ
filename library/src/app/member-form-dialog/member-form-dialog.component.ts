@@ -6,9 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { MemberDTO } from '../../../model/library.dto';
+import { MemberDTO } from '../../../models';
 import { CommonModule } from '@angular/common';
-import { MemberService } from '../service/member.service';
+import { MemberService } from '../services/member.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 

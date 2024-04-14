@@ -3,8 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { BorrowDTO } from '../../../model/library.dto';
-import { BorrowService } from '../service/borrow.service';
+import { BorrowDTO } from '../../../models';
+import { BorrowService } from '../services/borrow.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { DelayConfig } from '../delayed.config';
+import { DelayConfig } from '../../delayed.config';
 import { CassetteFormDialogComponent } from '../cassette-form-dialog/cassette-form-dialog.component';
 
 @Component({
@@ -84,15 +84,15 @@ export class DelayedDvdListComponent {
     this.spinner.show();
     this.borrowService.getAll().subscribe({
         next: (borrows) => {
-          this.borrows = borrows;
-            this.dataSource = new MatTableDataSource<BorrowDTO>(this.borrows);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-            this.spinner.hide();
+          this.borrows = borrows.filter(borrow => borrow.dvd != null);
+          this.dataSource = new MatTableDataSource<BorrowDTO>(this.borrows);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.spinner.hide();
         },
         error: (err) => {
-            console.log(err);
-            this.spinner.hide();
+          console.log(err);
+          this.spinner.hide();
         }
     });
   }

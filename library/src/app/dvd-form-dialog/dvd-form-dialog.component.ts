@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { DVDDTO } from '../../../model/library.dto';
-import { DvdService } from '../service/dvd.service';
+import { DVDDTO } from '../../../models';
+import { DvdService } from '../services/dvd.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({

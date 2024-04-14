@@ -8,15 +8,15 @@
     <h1>Kikölcsönzött DVD-k</h1>
   </mat-toolbar>
 
-  <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
+  <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
-  <button mat-flat-button color="accent" (click)="openDialog()" style="margin-right: 150vh; width: 20vh;"><mat-icon>add</mat-icon>Kölcsönzés hozzáadása</button>
+  <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Kölcsönzés hozzáadása</button>
 
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
       <p style="color: white">Kikölcsönzött DVD-k betöltése...</p>
   </ngx-spinner>
 
-  <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
+  <mat-form-field appearance="fill" style="width: 30vw; margin: 2vh;">
     <mat-label>Kikölcsönzött DVD keresése</mat-label>
     <input matInput (keyup)="filterChange($event)" placeholder="Kikölcsönzött DVD keresése">
   </mat-form-field>
