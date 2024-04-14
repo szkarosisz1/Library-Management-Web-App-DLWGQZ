@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CassetteDTO } from '../../../model/library.dto';
-import { apiUrl } from '../api.url';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +10,22 @@ export class CassetteService {
   constructor(private http: HttpClient) { }
 
   getAll(){
-    return this.http.get<CassetteDTO[]>(apiUrl.ServiceApi + 'cassette');
+    return this.http.get<CassetteDTO[]>('/api/cassette');
   }
 
   getOne(id: number) {
-    return this.http.get<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id);
+    return this.http.get<CassetteDTO>('/api/cassette/' + id);
   }
 
   create(cassette: CassetteDTO){
-    return this.http.post<CassetteDTO>(apiUrl.ServiceApi + 'cassette', cassette);
+    return this.http.post<CassetteDTO>('/api/cassette', cassette);
   }
 
   update(id: number, cassette: CassetteDTO){
-    return this.http.put<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id, cassette);
+    return this.http.put<CassetteDTO>('/api/cassette/' + id, cassette);
   }
 
   delete(id: number) {
-    return this.http.put<CassetteDTO>(apiUrl.ServiceApi + 'cassette/' + id + '/status', { status: 'Szabad' });
+    return this.http.put<CassetteDTO>('/api/cassette/' + id + '/status', { status: 'Szabad' });
   }
 }
