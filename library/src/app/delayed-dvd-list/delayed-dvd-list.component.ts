@@ -14,13 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { BookFormDialogComponent } from '../book-form-dialog/book-form-dialog.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DelayConfig } from '../delayed.config';
+import { CassetteFormDialogComponent } from '../cassette-form-dialog/cassette-form-dialog.component';
 
 @Component({
-  selector: 'app-delayed-book-list',
+  selector: 'app-delayed-dvd-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -37,15 +37,15 @@ import { DelayConfig } from '../delayed.config';
     MatPaginator,
     MatPaginatorModule,
     MatSortModule,
-    BookFormDialogComponent,
+    CassetteFormDialogComponent,
     ToastrModule
   ],
-  templateUrl: './delayed-book-list.component.html',
-  styleUrl: './delayed-book-list.component.css'
+  templateUrl: './delayed-dvd-list.component.html',
+  styleUrl: './delayed-dvd-list.component.css'
 })
-export class DelayedBookListComponent {
+export class DelayedDvdListComponent {
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'book', 'delay'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'dvd', 'delay'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
 
   event: any;

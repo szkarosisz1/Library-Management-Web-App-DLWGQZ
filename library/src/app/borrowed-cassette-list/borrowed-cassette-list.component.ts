@@ -48,7 +48,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 })
 export class BorrowedCassetteListComponent {
   borrowedCassettes: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'cassette'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'cassette', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrowedCassettes);
   event: any;
   borrow: any;
@@ -110,6 +110,32 @@ export class BorrowedCassetteListComponent {
         error: (err) => {
           console.log(err);
         }
+      });
+    }
+
+    editBorrowedCassette(borrow: BorrowDTO) {
+      this.openDialog(borrow);
+    }
+  
+    deleteBorrowedCassette(id: number) {
+      this.spinner.show();
+  
+      this.borrowService.delete(id).subscribe({
+          next: () => {
+              this.toastrService.success('Kikölcsönzött kazetta törölve', 'Sikeres törlés');
+              setTimeout(() => {
+                  this.spinner.hide(); 
+                  location.reload(); 
+              }, 1000);
+          },
+          error: (err) => {
+              console.error(err);
+              this.toastrService.error('Hiba történt a törlés során.', 'Hiba törlésnél');
+              setTimeout(() => {
+                  this.spinner.hide();
+                  location.reload(); 
+              }, 1000);
+          }
       });
     }
 

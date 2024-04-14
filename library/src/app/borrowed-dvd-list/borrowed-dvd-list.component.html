@@ -18,7 +18,7 @@
 
   <mat-form-field appearance="fill" style="width: 100vh; margin: 2vh;">
     <mat-label>Kikölcsönzött DVD keresése</mat-label>
-    <input matInput (keyup)="filterChange($event)" placeholder="Kikölcsönzött kazetta keresése">
+    <input matInput (keyup)="filterChange($event)" placeholder="Kikölcsönzött DVD keresése">
   </mat-form-field>
 
   <div class="mat-elevation-z8">
@@ -40,8 +40,16 @@
         </ng-container>
     
         <ng-container matColumnDef="dvd">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Kikölcsönzött kazetta</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Kikölcsönzött DVD</mat-header-cell>
           <mat-cell *matCellDef="let borrow">{{ borrow.dvd ? borrow.dvd.title : '-' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
+          <mat-cell *matCellDef="let borrow">
+              <button mat-icon-button matTooltip="Módosítás" (click)="editBorrowedDvd(borrow)"><mat-icon color="primary">edit</mat-icon></button>
+              <button mat-icon-button matTooltip="Törlés" (click)="deleteBorrowedDvd(borrow.id)"><mat-icon color="warn">delete</mat-icon></button>
+          </mat-cell>
         </ng-container>
     
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -44,6 +44,14 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Kölcsönzött kazetta</mat-header-cell>
         <mat-cell *matCellDef="let borrow">{{ borrow.cassette?.title }}</mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
+        <mat-cell *matCellDef="let borrow">
+            <button mat-icon-button matTooltip="Módosítás" (click)="editBorrow(borrow)"><mat-icon color="primary">edit</mat-icon></button>
+            <button mat-icon-button matTooltip="Törlés" (click)="deleteBorrow(borrow.id)"><mat-icon color="warn">delete</mat-icon></button>
+        </mat-cell>
+      </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>  

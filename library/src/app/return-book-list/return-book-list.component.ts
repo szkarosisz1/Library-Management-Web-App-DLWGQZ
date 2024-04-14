@@ -17,6 +17,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { BookFormDialogComponent } from '../book-form-dialog/book-form-dialog.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ReturnBookFormDialogComponent } from '../return-book-form-dialog/return-book-form-dialog.component';
 
 @Component({
   selector: 'app-return-book-list',
@@ -43,8 +44,10 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   styleUrl: './return-book-list.component.css'
 })
 export class ReturnBookListComponent {
+  
+
   borrows: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'book'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'book', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
   event: any;
 
@@ -76,6 +79,41 @@ export class ReturnBookListComponent {
       this.spinner.hide();
       location.reload();
     }, 1000);
+  }
+
+  editBorrow(borrow: BorrowDTO | null = null) {
+    const dialogRef = this.dialog.open(ReturnBookFormDialogComponent, {
+      width: '30%',
+      data: borrow
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadBorrows();
+      }
+    });
+  }
+  
+  deleteBorrow(id: number) {
+    this.spinner.show();
+
+    this.borrowService.delete(id).subscribe({
+        next: () => {
+            this.toastrService.success('Visszahozott könyv sikeresen törölve.', 'Sikeres törlés');
+            setTimeout(() => {
+                this.spinner.hide(); 
+                location.reload(); 
+            }, 1000);
+        },
+        error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt a törlés során.', 'Hiba törlésnél');
+            setTimeout(() => {
+                this.spinner.hide();
+                location.reload(); 
+            }, 1000);
+        }
+    });
   }
 
   loadBorrows(): void {

@@ -18,6 +18,11 @@ import { BorrowedCassetteFormDialogComponent } from './borrowed-cassette-form-di
 import { BorrowedDvdListComponent } from './borrowed-dvd-list/borrowed-dvd-list.component';
 import { BorrowedDvdFormDialogComponent } from './borrowed-dvd-form-dialog/borrowed-dvd-form-dialog.component';
 import { DelayedBookListComponent } from './delayed-book-list/delayed-book-list.component';
+import { ReturnBookFormDialogComponent } from './return-book-form-dialog/return-book-form-dialog.component';
+import { ReturnCassetteFormDialogComponent } from './return-cassette-form-dialog/return-cassette-form-dialog.component';
+import { ReturnDvdFormDialogComponent } from './return-dvd-form-dialog/return-dvd-form-dialog.component';
+import { DelayedCassetteListComponent } from './delayed-cassette-list/delayed-cassette-list.component';
+import { DelayedDvdListComponent } from './delayed-dvd-list/delayed-dvd-list.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -30,6 +35,9 @@ export const routes: Routes = [
 	{ path: 'dvd-list', component: DvdListComponent },
     { path: 'dvd-form-dialog', component: DvdFormDialogComponent },
     { path: 'return-book-list', component: ReturnBookListComponent },
+    { path: 'return-book-form-dialog', component: ReturnBookFormDialogComponent },
+    { path: 'return-cassette-form-dialog', component: ReturnCassetteFormDialogComponent },
+    { path: 'return-dvd-form-dialog', component: ReturnDvdFormDialogComponent },
     { path: 'return-cassette-list', component: ReturnCassetteListComponent },
     { path: 'return-dvd-list', component: ReturnDvdListComponent },
     { path: 'borrowed-book-list', component: BorrowedBookListComponent },
@@ -39,7 +47,8 @@ export const routes: Routes = [
     { path: 'borrowed-dvd-list', component: BorrowedDvdListComponent },
     { path: 'borrowed-dvd-form-dialog', component: BorrowedDvdFormDialogComponent },
     { path: 'delayed-book-list', component: DelayedBookListComponent },
-
+    { path: 'delayed-cassette-list', component: DelayedCassetteListComponent },
+    { path: 'delayed-dvd-list', component: DelayedDvdListComponent },
 ];
 
 export default routes;

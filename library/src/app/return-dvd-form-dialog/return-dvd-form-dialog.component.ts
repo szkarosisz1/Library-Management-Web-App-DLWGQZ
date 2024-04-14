@@ -8,12 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { BorrowDTO, DVDDTO, MemberDTO } from '../../../model/library.dto';
+import { BookDTO, BorrowDTO, CassetteDTO, DVDDTO, MemberDTO } from '../../../model/library.dto';
 import { BorrowService } from '../service/borrow.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-borrowed-dvd-form-dialog',
+  selector: 'app-return-dvd-form-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,41 +27,27 @@ import { NgxSpinnerService } from 'ngx-spinner';
     ReactiveFormsModule,
     ToastrModule
   ],
-  templateUrl: './borrowed-dvd-form-dialog.component.html',
-  styleUrl: './borrowed-dvd-form-dialog.component.css'
+  templateUrl: './return-dvd-form-dialog.component.html',
+  styleUrl: './return-dvd-form-dialog.component.css'
 })
-export class BorrowedDvdFormDialogComponent {
-  actionBtn: string;
-  dialogTitle: string;
+export class ReturnDvdFormDialogComponent {
   members: MemberDTO | null = null; 
   dvds: DVDDTO | null = null;
 
   borrowForm = this.formBuilder.group({
+    returnDate: [new Date(), Validators.required],
     member: [this.members, Validators.required],
-    borrowDate: [new Date(), Validators.required],
     dvd: [this.dvds, Validators.required]
   });
 
   constructor(
-    public dialogRef: MatDialogRef<BorrowedDvdFormDialogComponent>,
+    public dialogRef: MatDialogRef<ReturnDvdFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BorrowDTO,
     private formBuilder: FormBuilder,
     private borrowService: BorrowService,
     private toastrService: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
-
-  ngOnInit(): void {
-    this.updateButtonTitle();
-  }
-
-  updateButtonTitle() {
-    this.actionBtn = this.data ? "Módosítás" : "Mentés";
-    this.dialogTitle = this.data ? 'Kölcsönzés módosítása' : 'Kölcsönzés hozzáadása';
-    if (this.data) { 
-      this.borrowForm.patchValue(this.data);
-    }
-  }
 
   save() {
     const borrow = this.borrowForm.value as BorrowDTO;

@@ -51,6 +51,8 @@
         <button [matMenuTriggerFor]="delayedMenu" mat-button><mat-icon>timer</mat-icon>Késések</button>
         <mat-menu #delayedMenu="matMenu">
           <button routerLink="/delayed-book-list" mat-menu-item><mat-icon>menu_book</mat-icon>Késések könyvekkel</button>
+          <button routerLink="/delayed-cassette-list" mat-menu-item><mat-icon>library_music</mat-icon>Késések kazettákkal</button>
+          <button routerLink="/delayed-dvd-list" mat-menu-item><mat-icon>ondemand_video</mat-icon>Késések DVD-kel</button>
         </mat-menu>
       </mat-list-item>
 

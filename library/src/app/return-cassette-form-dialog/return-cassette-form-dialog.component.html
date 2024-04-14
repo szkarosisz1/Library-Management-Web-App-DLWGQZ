@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Visszahozott Kazetta módosítása</h1>
+
+<div mat-dialog-content [formGroup]="borrowForm">
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Visszahozás dátuma</mat-label>
+        <input matInput placeholder="Visszahozás dátuma" formControlName="returnDate">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Tag azonosítója</mat-label>
+        <input matInput placeholder="Tag azonosítója" formControlName="member">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Kazetta azonosítója</mat-label>
+        <input matInput placeholder="Kazetta azonosítója" formControlName="cassette">
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close style="width: 10vh;" (click)="cancel()">Mégse</button>
+    <button mat-raised-button color="primary" style="margin-left: 2vh; width: 10vh;" (click)="save()">Módosítás</button>
+</div>
