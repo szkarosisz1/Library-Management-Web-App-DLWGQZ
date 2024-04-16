@@ -1,9 +1,15 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   <button (click)="drawer.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
   <h1 style="margin-right: auto;">Könyvtári nyilvántartás</h1>
-  <!--<div>
-    <button mat-button>Kijelentkezés</button>
-  </div>-->
+  <div>
+    @if(authService.isLoggedIn()) {
+      <button mat-button (click)="logout()">Kilépés</button>
+    }
+    @if(!authService.isLoggedIn()) {
+      <button mat-button routerLink="/login">Belépés</button>
+      <button mat-button routerLink="/register">Regisztráció</button>
+    }
+  </div>
 </mat-toolbar>
 
 <mat-drawer-container class="mat-drawer-container">

@@ -23,32 +23,132 @@ import { ReturnCassetteFormDialogComponent } from './return-cassette-form-dialog
 import { ReturnDvdFormDialogComponent } from './return-dvd-form-dialog/return-dvd-form-dialog.component';
 import { DelayedCassetteListComponent } from './delayed-cassette-list/delayed-cassette-list.component';
 import { DelayedDvdListComponent } from './delayed-dvd-list/delayed-dvd-list.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { inject } from '@angular/core';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: 'member-list', component: MemberListComponent },
-    { path: 'member-form-dialog', component: MemberFormDialogComponent },
-    { path: 'book-list', component: BookListComponent },
-    { path: 'book-form-dialog', component: BookFormDialogComponent },
-    { path: 'cassette-list', component: CassetteListComponent },
-    { path: 'cassette-form-dialog', component: CassetteFormDialogComponent },
-	{ path: 'dvd-list', component: DvdListComponent },
-    { path: 'dvd-form-dialog', component: DvdFormDialogComponent },
-    { path: 'return-book-list', component: ReturnBookListComponent },
-    { path: 'return-book-form-dialog', component: ReturnBookFormDialogComponent },
-    { path: 'return-cassette-form-dialog', component: ReturnCassetteFormDialogComponent },
-    { path: 'return-dvd-form-dialog', component: ReturnDvdFormDialogComponent },
-    { path: 'return-cassette-list', component: ReturnCassetteListComponent },
-    { path: 'return-dvd-list', component: ReturnDvdListComponent },
-    { path: 'borrowed-book-list', component: BorrowedBookListComponent },
-    { path: 'borrowed-book-form-dialog', component: BorrowedBookFormDialogComponent},
-    { path: 'borrowed-cassette-list', component: BorrowedCassetteListComponent },
-    { path: 'borrowed-cassette-form-dialog', component: BorrowedCassetteFormDialogComponent },
-    { path: 'borrowed-dvd-list', component: BorrowedDvdListComponent },
-    { path: 'borrowed-dvd-form-dialog', component: BorrowedDvdFormDialogComponent },
-    { path: 'delayed-book-list', component: DelayedBookListComponent },
-    { path: 'delayed-cassette-list', component: DelayedCassetteListComponent },
-    { path: 'delayed-dvd-list', component: DelayedDvdListComponent },
+    {   
+        path: 'home', 
+        component: HomeComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'member-list', 
+        component: MemberListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'member-form-dialog', 
+        component: MemberFormDialogComponent,  
+    },
+    { 
+        path: 'book-list', 
+        component: BookListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    {   
+        path: 'book-form-dialog', component: BookFormDialogComponent,       
+    },
+    {   
+        path: 'cassette-list', 
+        component: CassetteListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    {   
+        path: 'cassette-form-dialog',   
+        component: CassetteFormDialogComponent  
+    },
+	{   
+        path: 'dvd-list', 
+        component: DvdListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    {   
+        path: 'dvd-form-dialog', 
+        component: DvdFormDialogComponent
+    },
+    {   
+        path: 'return-book-list', 
+        component: ReturnBookListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'return-book-form-dialog', 
+        component: ReturnBookFormDialogComponent
+    },
+    { 
+        path: 'return-cassette-form-dialog', 
+        component: ReturnCassetteFormDialogComponent
+    },
+    { 
+        path: 'return-dvd-form-dialog', 
+        component: ReturnDvdFormDialogComponent
+    },
+    { 
+        path: 'return-cassette-list', 
+        component: ReturnCassetteListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    { 
+        path: 'return-dvd-list', 
+        component: ReturnDvdListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    { 
+        path: 'borrowed-book-list', 
+        component: BorrowedBookListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'borrowed-book-form-dialog', 
+        component: BorrowedBookFormDialogComponent
+    },
+    { 
+        path: 'borrowed-cassette-list', 
+        component: BorrowedCassetteListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'borrowed-cassette-form-dialog', 
+        component: BorrowedCassetteFormDialogComponent
+    },
+    { 
+        path: 'borrowed-dvd-list', 
+        component: BorrowedDvdListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'borrowed-dvd-form-dialog', 
+        component: BorrowedDvdFormDialogComponent
+    },
+    { 
+        path: 'delayed-book-list', 
+        component: DelayedBookListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    { 
+        path: 'delayed-cassette-list', 
+        component: DelayedCassetteListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    { 
+        path: 'delayed-dvd-list', 
+        component: DelayedDvdListComponent,
+        //canActivate: [ () => inject(AuthService).preventGuestAccess() ] 
+    },
+    { 
+        path: 'login', 
+        component: LoginComponent,
+        //canActivate: [ () => inject(AuthService).preventAuthenticatedAccess() ] 
+    },
+    { 
+        path: 'register', 
+        component: RegisterComponent,
+        //canActivate: [ () => inject(AuthService).preventAuthenticatedAccess() ] 
+    }
+
 ];
 
 export default routes;

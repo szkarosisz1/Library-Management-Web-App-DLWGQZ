@@ -10,7 +10,9 @@
 
 <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
-<button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Kazetta hozzáadása</button>
+  @if(authService.isLoggedIn()) {
+    <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Kazetta hozzáadása</button>
+  }
 
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
     <p style="color: white">Kazetták betöltése...</p>
@@ -56,17 +58,16 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
         <mat-cell *matCellDef="let cassette">
+          @if(authService.isLoggedIn()) {
             <button mat-icon-button matTooltip="Módosítás" (click)="editCassette(cassette)"><mat-icon color="primary">edit</mat-icon></button>
             <button mat-icon-button matTooltip="Törlés" (click)="deleteCassette(cassette.id)"><mat-icon color="warn">delete</mat-icon></button>
+          }
         </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
     </mat-table>
-
     <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 12]" showFirstLastButtons></mat-paginator>
-  </div>
-  
+  </div> 
 </div>

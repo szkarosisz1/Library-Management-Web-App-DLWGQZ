@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, inject} from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CassetteDTO } from '../../../models';
 import { CassetteService } from '../services/cassette.service';
@@ -19,6 +19,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-cassette-list',
@@ -55,6 +56,8 @@ export class CassetteListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  authService = inject(AuthService);
 
   constructor(
     private cassetteService: CassetteService, 

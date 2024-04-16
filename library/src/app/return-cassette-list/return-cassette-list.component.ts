@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { BorrowDTO, CassetteDTO } from '../../../models';
 import { BorrowService } from '../services/borrow.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { BookFormDialogComponent } from '../book-form-dialog/book-form-dialog.co
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ReturnCassetteFormDialogComponent } from '../return-cassette-form-dialog/return-cassette-form-dialog.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-return-cassette-list',
@@ -48,6 +49,8 @@ export class ReturnCassetteListComponent {
   displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'cassette', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
   event: any;
+
+  authService = inject(AuthService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

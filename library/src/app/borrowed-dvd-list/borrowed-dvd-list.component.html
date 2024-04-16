@@ -10,7 +10,9 @@
 
   <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
-  <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Kölcsönzés hozzáadása</button>
+  @if(authService.isLoggedIn()) {
+    <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Kölcsönzés hozzáadása</button>
+  }
 
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
       <p style="color: white">Kikölcsönzött DVD-k betöltése...</p>
@@ -47,8 +49,10 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
           <mat-cell *matCellDef="let borrow">
+            @if(authService.isLoggedIn()) {
               <button mat-icon-button matTooltip="Módosítás" (click)="editBorrowedDvd(borrow)"><mat-icon color="primary">edit</mat-icon></button>
               <button mat-icon-button matTooltip="Törlés" (click)="deleteBorrowedDvd(borrow.id)"><mat-icon color="warn">delete</mat-icon></button>
+            }
           </mat-cell>
         </ng-container>
     

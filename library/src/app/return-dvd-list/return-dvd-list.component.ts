@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BorrowDTO } from '../../../models';
@@ -18,6 +18,7 @@ import { BookFormDialogComponent } from '../book-form-dialog/book-form-dialog.co
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ReturnDvdFormDialogComponent } from '../return-dvd-form-dialog/return-dvd-form-dialog.component';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -49,6 +50,8 @@ export class ReturnDvdListComponent {
   displayedColumns: string[] = ['id', 'borrowDate', 'returnDate', 'member', 'dvd', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrows);
   event: any;
+
+  authService = inject(AuthService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

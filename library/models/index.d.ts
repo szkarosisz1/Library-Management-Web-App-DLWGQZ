@@ -30,7 +30,6 @@ export interface BorrowDTO {
     delay: number;
 }
 
-
 export interface CassetteDTO {
     id: number;
     author: string;
@@ -59,4 +58,21 @@ export interface MemberDTO {
     address: string; 
     status: StatusMember;
     borrows: BorrowDTO[];
+}
+
+export interface UserDTO {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string | null;
+  }
+
+export interface LoginDTO {
+    email: string;
+    password: string;
+}
+
+export interface AccessTokenDTO {
+    accessToken: string;
 }

@@ -1,17 +1,18 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
 
 <div class="container" style="width: 70vw; margin: 0 auto;">
-
     <mat-toolbar color="primary">
         <button mat-flat-button color="primary" (click)="refresh()"><mat-icon>refresh</mat-icon> Oldal frissítése</button>
         <span style="flex: 1 1 auto;"></span>
-        <h1>Könyvek</h1>
+        <h1>Könyv</h1>
     </mat-toolbar>
 
     <mat-divider [vertical]="true" style="margin: 2vh 0;"></mat-divider>
 
-    <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Könyv hozzáadása</button>
-
+    @if(authService.isLoggedIn()) {
+        <button mat-flat-button color="accent" (click)="openDialog()" style="width: 10vw;"><mat-icon>add</mat-icon>Könyv hozzáadása</button>
+    }
+    
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-loader" [fullScreen]="true">
         <p style="color: white">Könyvek betöltése...</p>
     </ngx-spinner>
@@ -56,8 +57,10 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
                 <mat-cell *matCellDef="let book">
-                    <button mat-icon-button matTooltip="Módosítás" (click)="editBook(book)"><mat-icon color="primary">edit</mat-icon></button>
-                    <button mat-icon-button matTooltip="Törlés" (click)="deleteBook(book.id)"><mat-icon color="warn">delete</mat-icon></button>
+                    @if(authService.isLoggedIn()) {
+                        <button mat-icon-button matTooltip="Módosítás" (click)="editBook(book)"><mat-icon color="primary">edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="Törlés" (click)="deleteBook(book.id)"><mat-icon color="warn">delete</mat-icon></button>
+                    }
                 </mat-cell>
             </ng-container>
 

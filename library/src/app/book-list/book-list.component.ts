@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { BookDTO } from '../../../models';
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { BookService } from '../services/book.service';
@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-book-list',
@@ -56,6 +57,8 @@ export class BookListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
+  authService = inject(AuthService);
 
   constructor(
     private bookService: BookService, 

@@ -2,6 +2,7 @@ import { AppDataSource } from "./data-source";
 import { getRoutes } from "./routes";
 import express from 'express';
 import cors from 'cors'
+import { handleAuthorizationError } from "./protect-routes";
 
 async function main() {
   try {
@@ -16,7 +17,7 @@ async function main() {
 
     app.use(express.json());
    
-    app.use('/api', getRoutes());
+    app.use('/api', getRoutes(), handleAuthorizationError);
 
     app.listen(3000, () => {
       console.log("Listening on port 3000...");

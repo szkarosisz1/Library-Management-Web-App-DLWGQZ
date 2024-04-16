@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BorrowDTO } from '../../../models';
@@ -19,6 +19,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { BorrowedCassetteFormDialogComponent } from '../borrowed-cassette-form-dialog/borrowed-cassette-form-dialog.component';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-borrowed-cassette-list',
@@ -55,6 +56,8 @@ export class BorrowedCassetteListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  authService = inject(AuthService);
 
   constructor(
     private borrowService: BorrowService, 

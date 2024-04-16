@@ -1,0 +1,24 @@
+<mat-card class="my-card" style="max-width: 30vw; margin: 10vh auto 0; text-align: center;">
+    <mat-card-content>
+        <h1>Bejelentkezés</h1>
+      <form [formGroup]="loginForm">
+        <mat-form-field style=" width: 100%; margin-bottom: 1vh;">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field style=" width: 100%; margin-bottom: 1vh;">
+          <mat-label>Jelszó</mat-label>
+          <input matInput placeholder="Jelszó" formControlName="password">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button (click)="login()" color="primary" style="margin: 0 auto;">Belépés</button>
+    </mat-card-actions>
+</mat-card>
+  
+
+
+

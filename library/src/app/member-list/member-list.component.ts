@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MemberDTO } from '../../../models';
 import { MemberService } from '../services/member.service';
@@ -19,6 +19,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-member-list',
@@ -56,6 +57,8 @@ export class MemberListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  authService = inject(AuthService);
 
   constructor(
     private memberService: MemberService, 

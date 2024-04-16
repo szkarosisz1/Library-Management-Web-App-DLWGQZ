@@ -4,6 +4,8 @@ import { BorrowController } from './controller/borrow.controller';
 import { CassetteController } from './controller/cassette.controller';
 import { DvdController } from './controller/dvd.controller';
 import { MemberController } from './controller/member.controller';
+import { UserController } from './controller/user.controller';
+import { checkUser } from './protect-routes';
 
 export function getRoutes(): express.Router{
     const router = express.Router();
@@ -13,40 +15,46 @@ export function getRoutes(): express.Router{
     const cassetteController = new CassetteController();
     const dvdController = new DvdController();
     const memberController = new MemberController();
+    const userController = new UserController(); 
 
     router.get('/book', bookController.getAll);
     router.get('/book/:id', bookController.getOne);
-    router.post('/book', bookController.create);
-    router.put('/book/:id', bookController.update);
-    router.put('/book/:id/status', bookController.update);
-    router.delete('/book/:id', bookController.delete);
+    router.post('/book', checkUser, bookController.create);
+    router.put('/book/:id', checkUser, bookController.update);
+    router.put('/book/:id/status', checkUser, bookController.update);
+    router.delete('/book/:id', checkUser, bookController.delete);
 
     router.get('/borrow', borrowController.getAll);
     router.get('/borrow/:id', borrowController.getOne);
-    router.post('/borrow', borrowController.create);
-    router.put('/borrow/:id', borrowController.update);
-    router.delete('/borrow/:id', borrowController.delete);
+    router.post('/borrow', checkUser, borrowController.create);
+    router.put('/borrow/:id', checkUser, borrowController.update);
+    router.delete('/borrow/:id', checkUser, borrowController.delete);
 
     router.get('/cassette', cassetteController.getAll);
     router.get('/cassette/:id', cassetteController.getOne);
-    router.post('/cassette', cassetteController.create);
-    router.put('/cassette/:id', cassetteController.update);
-    router.put('/cassette/:id/status', cassetteController.update);
-    router.delete('/cassette/:id', cassetteController.delete);
+    router.post('/cassette', checkUser, cassetteController.create);
+    router.put('/cassette/:id', checkUser, cassetteController.update);
+    router.put('/cassette/:id/status', checkUser, cassetteController.update);
+    router.delete('/cassette/:id', checkUser, cassetteController.delete);
 
     router.get('/dvd', dvdController.getAll);
     router.get('/dvd/:id', dvdController.getOne);
-    router.post('/dvd', dvdController.create);
-    router.put('/dvd/:id', dvdController.update);
-    router.put('/dvd/:id/status', dvdController.update);
-    router.delete('/dvd/:id', dvdController.delete);
+    router.post('/dvd', checkUser, dvdController.create);
+    router.put('/dvd/:id', checkUser, dvdController.update);
+    router.put('/dvd/:id/status', checkUser, dvdController.update);
+    router.delete('/dvd/:id', checkUser, dvdController.delete);
 
     router.get('/member', memberController.getAll);
     router.get('/member/:id', memberController.getOne);
-    router.post('/member', memberController.create);
-    router.put('/member/:id', memberController.update);
-    router.put('/member/:id/status', memberController.update);
-    router.delete('/member/:id', memberController.delete);
+    router.post('/member', checkUser, memberController.create);
+    router.put('/member/:id', checkUser, memberController.update);
+    router.put('/member/:id/status', checkUser, memberController.update);
+    router.delete('/member/:id', checkUser, memberController.delete);
+
+    router.get('/user', userController.getAll);
+    router.get('/user/:id', userController.getOne);
+    router.post('/user', userController.create);
+    router.post('/user/login', userController.login);
 
     return router;
 }
