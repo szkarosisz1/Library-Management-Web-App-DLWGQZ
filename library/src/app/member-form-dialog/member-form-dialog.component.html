@@ -3,27 +3,39 @@
 <div mat-dialog-content [formGroup]="memberForm">
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Név</mat-label>
-        <input matInput placeholder="Tag neve" formControlName="name">
+        <input matInput placeholder="Tag neve" id="name" formControlName="name">
+        <mat-error *ngIf="memberForm.get('name')?.invalid && memberForm.get('name')?.dirty">
+            {{errorMessage.name}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Telefonszám</mat-label>
-        <input matInput placeholder="Telefonszám" formControlName="phoneNumber">
+        <input matInput placeholder="Telefonszám" id="phoneNumber" formControlName="phoneNumber">
+        <mat-error *ngIf="memberForm.get('phoneNumber')?.invalid && memberForm.get('phoneNumber')?.dirty">
+            {{errorMessage.phoneNumber}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Személyigazolvány</mat-label>
-        <input matInput placeholder="Személyigazolvány szám" formControlName="idCardNumber">
+        <input matInput placeholder="Személyigazolvány szám" id="idCardNumber" formControlName="idCardNumber">
+        <mat-error *ngIf="memberForm.get('idCardNumber')?.invalid && memberForm.get('idCardNumber')?.dirty">
+            {{errorMessage.idCardNumber}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Lakcím</mat-label>
-        <input matInput placeholder="Lakcím" formControlName="address">
+        <input matInput placeholder="Lakcím" id="address" formControlName="address">
+        <mat-error *ngIf="memberForm.get('address')?.invalid && memberForm.get('address')?.dirty">
+            {{errorMessage.address}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Státusz</mat-label>
-        <mat-select placeholder="Státusz" formControlName="status">
+        <mat-select placeholder="Státusz" id="status" formControlName="status">
             <mat-option value="Aktív">Aktív</mat-option>
             <mat-option value="Passzív">Passzív</mat-option>
         </mat-select>

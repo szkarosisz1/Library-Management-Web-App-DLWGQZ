@@ -33,7 +33,7 @@ export class Member {
     type: 'enum',
     enum: StatusMember,
     default: StatusMember.active
-    })
+  })
   status: string;
 
   @OneToMany(() => Borrow, borrow => borrow.member)

@@ -3,22 +3,34 @@
 <div mat-dialog-content [formGroup]="bookForm">
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Szerző</mat-label>
-        <input matInput placeholder="Szerző neve" formControlName="author">
+        <input matInput placeholder="Szerző neve" id="author" formControlName="author">
+        <mat-error *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.dirty">
+            {{errorMessage.author}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Cím</mat-label>
-        <input matInput placeholder="Könyv címe" formControlName="title">
+        <input matInput placeholder="Könyv címe" id="title" formControlName="title">
+        <mat-error *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.dirty">
+            {{errorMessage.title}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Beszerzés dátuma</mat-label>
-        <input matInput placeholder="Beszerzés dátuma" formControlName="acquisitionDate">
+        <input matInput placeholder="Beszerzés dátuma" id="acquisitionDate" formControlName="acquisitionDate">
+        <mat-error *ngIf="bookForm.get('acquisitionDate')?.invalid && bookForm.get('acquisitionDate')?.dirty">
+            {{errorMessage.acquisitionDate}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>ISBN szám</mat-label>
-        <input matInput placeholder="ISBN szám" formControlName="serialNumber">
+        <input matInput placeholder="ISBN szám" id="serialNumber" formControlName="serialNumber">
+        <mat-error *ngIf="bookForm.get('serialNumber')?.invalid && bookForm.get('serialNumber')?.dirty">
+            {{errorMessage.serialNumber}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">

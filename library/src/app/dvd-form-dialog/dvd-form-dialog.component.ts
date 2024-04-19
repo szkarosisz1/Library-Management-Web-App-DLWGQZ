@@ -39,13 +39,22 @@ export class DvdFormDialogComponent {
     'Selejtezett'
   ];
 
+  serialPattern = /^978\d{10}$/;
+
   dvdForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    author: ['', Validators.required],
-    acquisitionDate: [new Date(), Validators.required],
-    serialNumber: ['', Validators.required],
-    status: ['', Validators.required]
+    title: ['', [Validators.required]],
+    author: ['', [Validators.required]],
+    acquisitionDate: [new Date(), [Validators.required]],
+    serialNumber: ['', [Validators.required, Validators.pattern(this.serialPattern)]],
+    status: ['', [Validators.required]]
   });
+
+  errorMessage = {
+    title: 'A cím nem lehet üres.',
+    author: 'A szerző nem lehet üres.',
+    acquisitionDate: 'Érvénytelen dátum. (Pl.: 2024-04-18 10:00:35)',
+    serialNumber: 'Érvénytelen Szériaszám. Helyes formátum: 9789639858001'
+  }
 
   constructor(
     public dialogRef: MatDialogRef<DvdFormDialogComponent>,
@@ -72,43 +81,51 @@ export class DvdFormDialogComponent {
     const dvd = this.dvdForm.value as DVDDTO;
     this.spinner.show();
     this.dialogRef.close();
-  
-    if (!this.data) {
-      this.dvdService.create(dvd).subscribe({
-        next: () => {
-          this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      });
+
+    if (this.dvdForm.valid) {
+      if (!this.data) {
+        this.dvdService.create(dvd).subscribe({
+          next: () => {
+            this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        this.dvdService.update(this.data.id, dvd).subscribe({
+          next: () => {
+            this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        })
+      }
     } else {
-      this.dvdService.update(this.data.id, dvd).subscribe({
-        next: () => {
-          this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      })
+      this.toastrService.error('Érvénytelen adatokat adott meg.', 'Sikertelen DVD hozzáadása');
+      setTimeout(() => {
+        this.spinner.hide();
+        location.reload();
+      }, 1000);
     }
   }  
 

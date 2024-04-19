@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { BookDTO, BorrowDTO, CassetteDTO, DVDDTO, MemberDTO } from '../../../models';
+import { BorrowDTO, CassetteDTO, MemberDTO } from '../../../models';
 import { BorrowService } from '../services/borrow.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -40,6 +40,12 @@ export class ReturnCassetteFormDialogComponent {
     cassette: [this.cassettes, Validators.required]
   });
 
+  errorMessage = {
+    returnDate: 'Érvénytelen dátum. (Pl.: 2024-04-18 10:00:35)',
+    member: 'A tag azonosítója nem lehet üres',
+    cassette: 'A kazetta azonosítója nem lehet üres.'
+  }
+
   constructor(
     public dialogRef: MatDialogRef<ReturnCassetteFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BorrowDTO,
@@ -54,42 +60,32 @@ export class ReturnCassetteFormDialogComponent {
     this.spinner.show();
     this.dialogRef.close();
   
-    if (!this.data) {
-      this.borrowService.create(borrow).subscribe({
-        next: () => {
-          this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      });
+    if (this.borrowForm.valid) {
+      if (this.data) {
+        this.borrowService.update(this.data.id, borrow).subscribe({
+          next: () => {
+            this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        })
+      }
     } else {
-      this.borrowService.update(this.data.id, borrow).subscribe({
-        next: () => {
-          this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      })
+      this.toastrService.error('Érvénytelen adatokat adott meg.', 'Sikertelen módosíás');
+      setTimeout(() => {
+        this.spinner.hide();
+        location.reload();
+      }, 1000);
     }
   }  
 

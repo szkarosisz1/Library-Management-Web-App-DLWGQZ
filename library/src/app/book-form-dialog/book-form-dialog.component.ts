@@ -39,13 +39,22 @@ export class BookFormDialogComponent {
     'Selejtezett'
   ];
 
+  serialPattern = /^978-963-07-\d{4}-\d{1}$/;
+
   bookForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    author: ['', Validators.required],
-    acquisitionDate: [new Date(), Validators.required],
-    serialNumber: ['', Validators.required],
-    status: ['', Validators.required]
+    title: ['', [Validators.required]],
+    author: ['', [Validators.required]],
+    acquisitionDate: [new Date(), [Validators.required]],
+    serialNumber: ['', [Validators.required, Validators.pattern(this.serialPattern)]],
+    status: ['', [Validators.required]]
   });
+
+  errorMessage = {
+    title: 'A cím nem lehet üres.',
+    author: 'A szerző nem lehet üres.',
+    acquisitionDate: 'Érvénytelen dátum. (Pl.: 2024-04-18 10:00:35)',
+    serialNumber: 'Érvénytelen ISBN szám. Helyes formátum: 978-963-07-7681-5'
+  }
   
   constructor(
     public dialogRef: MatDialogRef<BookFormDialogComponent>,
@@ -72,43 +81,51 @@ export class BookFormDialogComponent {
     const book = this.bookForm.value as BookDTO;
     this.spinner.show();
     this.dialogRef.close();
-  
-    if (!this.data) {
-      this.bookService.create(book).subscribe({
-        next: () => {
-          this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      });
+
+    if (this.bookForm.valid) {
+      if (!this.data) {
+        this.bookService.create(book).subscribe({
+          next: () => {
+            this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        this.bookService.update(this.data.id, book).subscribe({
+          next: () => {
+            this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        })
+      }
     } else {
-      this.bookService.update(this.data.id, book).subscribe({
-        next: () => {
-          this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      })
+      this.toastrService.error('Érvénytelen adatokat adott meg.', 'Sikertelen könyv hozzáadása');
+      setTimeout(() => {
+        this.spinner.hide();
+        location.reload();
+      }, 1000);
     }
   }  
 

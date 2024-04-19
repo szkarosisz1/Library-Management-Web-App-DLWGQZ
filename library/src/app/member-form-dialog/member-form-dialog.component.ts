@@ -38,13 +38,22 @@ export class MemberFormDialogComponent {
     'Passzív'
   ];
 
+  phonepattern = /^(0620|0630|0670)\d{7}$/;
+  idCardPattern = /^\d{6}[A-Z]{2}$/;
+
   memberForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    phoneNumber: ['', Validators.required],
-    idCardNumber: ['', Validators.required],
-    address: ['', Validators.required],
-    status: ['', Validators.required]
+    name: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required, Validators.pattern(this.phonepattern)]],
+    idCardNumber: ['', [Validators.required, Validators.pattern(this.idCardPattern)]],
+    address: ['', [Validators.required]]
   });
+
+  errorMessage = {
+    name: 'A név nem lehet üres.',
+    phoneNumber: 'Érvénytelen telefonszám. Helyes formátum: 06203456789',
+    idCardNumber: 'Érvénytelen személyigazolvány szám. Helyes formátum: 055105RE',
+    address: 'A lakcím nem lehet üres.'
+  }
   
   constructor(
     public dialogRef: MatDialogRef<MemberFormDialogComponent>,
@@ -72,42 +81,50 @@ export class MemberFormDialogComponent {
     this.dialogRef.close();
     this.spinner.show();
 
-    if (!this.data) {
-      this.memberService.create(member).subscribe({
-        next: () => {
-          this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      });
+    if (this.memberForm.valid) {
+      if (!this.data) {
+        this.memberService.create(member).subscribe({
+          next: () => {
+            this.toastrService.success('Mentés sikeresen megtörtént.', 'Sikeres mentés');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt mentéskor.', 'Hiba mentésnél');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        this.memberService.update(this.data.id, member).subscribe({
+          next: () => {
+            this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
+            setTimeout(() => {
+              this.spinner.hide();
+              location.reload();
+            }, 1000);
+          }
+        })
+      }
     } else {
-      this.memberService.update(this.data.id, member).subscribe({
-        next: () => {
-          this.toastrService.success('Módosítás sikeresen megtörtént.', 'Sikeres módosítás');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Hiba történt módosításkor.', 'Hiba módosításnál');
-          setTimeout(() => {
-            this.spinner.hide();
-            location.reload();
-          }, 1000);
-        }
-      })
+      this.toastrService.error('Érvénytelen adatokat adott meg.', 'Sikertelen tag hozzáadása');
+      setTimeout(() => {
+        this.spinner.hide();
+        location.reload();
+      }, 1000);
     }
   }
 

@@ -147,7 +147,6 @@ export class CassetteListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-
   }
 
   announceSortChange(sortState: Sort) {

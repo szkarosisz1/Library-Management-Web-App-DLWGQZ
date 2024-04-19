@@ -3,17 +3,26 @@
 <div mat-dialog-content [formGroup]="borrowForm">
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Tag azonosítója</mat-label>
-        <input matInput placeholder="Tag azonosítója" formControlName="member">
+        <input matInput placeholder="Tag azonosítója" id="member" formControlName="member">
+        <mat-error *ngIf="borrowForm.get('member')?.invalid && borrowForm.get('member')?.dirty">
+            {{errorMessage.member}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Kölcsönzés dátuma</mat-label>
-        <input matInput placeholder="Kölcsönzés dátuma" formControlName="borrowDate">
+        <input matInput placeholder="Kölcsönzés dátuma" id="borrowDate" formControlName="borrowDate">
+        <mat-error *ngIf="borrowForm.get('borrowDate')?.invalid && borrowForm.get('borrowDate')?.dirty">
+            {{errorMessage.borrowDate}}
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
         <mat-label>Könyv azonosítója</mat-label>
-        <input matInput placeholder="Könyv azonosítója" formControlName="book">
+        <input matInput placeholder="Könyv azonosítója" id="book" formControlName="book">
+        <mat-error *ngIf="borrowForm.get('book')?.invalid && borrowForm.get('book')?.dirty">
+            {{errorMessage.book}}
+        </mat-error>
     </mat-form-field>
 </div>
 

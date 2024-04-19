@@ -42,7 +42,7 @@ import { AuthService } from '../services/auth.service';
     MatPaginatorModule,
     MatSortModule,
     DvdFormDialogComponent,
-    ToastrModule,
+    ToastrModule
   ],
   templateUrl: './dvd-list.component.html',
   styleUrl: './dvd-list.component.css'
@@ -149,7 +149,6 @@ export class DvdListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-
   }
 
   announceSortChange(sortState: Sort) {

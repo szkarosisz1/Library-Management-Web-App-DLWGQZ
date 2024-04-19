@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     MatDivider,
     MatIconModule,
+    MatToolbar,
+    MatToolbarModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -38,4 +41,5 @@ export class HomeComponent {
     this.slideAnimation = true;
     setTimeout(() => this.slideAnimation = false, 300); 
   }
+
 }

@@ -11,13 +11,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DelayConfig } from '../../delayed.config';
-import { CassetteFormDialogComponent } from '../cassette-form-dialog/cassette-form-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DvdFormDialogComponent } from '../dvd-form-dialog/dvd-form-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-delayed-dvd-list',
@@ -28,8 +30,10 @@ import { CassetteFormDialogComponent } from '../cassette-form-dialog/cassette-fo
     MatDivider,
     MatButtonModule,
     MatToolbar,
+    MatTooltipModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
     HttpClientModule,
     NgxSpinnerModule,
     MatInputModule,
@@ -37,7 +41,7 @@ import { CassetteFormDialogComponent } from '../cassette-form-dialog/cassette-fo
     MatPaginator,
     MatPaginatorModule,
     MatSortModule,
-    CassetteFormDialogComponent,
+    DvdFormDialogComponent,
     ToastrModule
   ],
   templateUrl: './delayed-dvd-list.component.html',
@@ -56,9 +60,7 @@ export class DelayedDvdListComponent {
   constructor(
     private borrowService: BorrowService, 
     private spinner: NgxSpinnerService,
-    private toastrService: ToastrService,
-    private _liveAnnouncer: LiveAnnouncer,
-    private dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   ngOnInit(): void {
@@ -95,6 +97,15 @@ export class DelayedDvdListComponent {
           this.spinner.hide();
         }
     });
+  }
+
+  filterChange(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   announceSortChange(sortState: Sort) {

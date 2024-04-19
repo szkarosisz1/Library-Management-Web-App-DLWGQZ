@@ -4,5 +4,5 @@ import { Controller } from "./base.controller";
 
 
 export class CassetteController extends Controller{
-    repository = AppDataSource.getRepository(Cassette)
+    repository = AppDataSource.getRepository(Cassette);
 }

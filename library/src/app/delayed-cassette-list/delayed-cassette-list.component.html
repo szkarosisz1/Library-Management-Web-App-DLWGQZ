@@ -14,15 +14,20 @@
       <p style="color: white">Késések betöltése...</p>
   </ngx-spinner>
 
+  <mat-form-field appearance="fill" style="width: 30vw; margin: 2vh;">
+    <mat-label>Kazetta keresése</mat-label>
+    <input matInput (keyup)="filterChange($event)" placeholder="Kazetta keresése">
+  </mat-form-field>
+
   <div class="mat-elevation-z8">
-    <mat-table [dataSource]="dataSource">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
         <mat-cell *matCellDef="let borrow">{{ borrow.id }}</mat-cell>
       </ng-container>
  
       <ng-container matColumnDef="borrowDate">
-        <mat-header-cell *matHeaderCellDef>Kölcsönzés dátuma</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Kölcsönzés dátuma</mat-header-cell>
         <mat-cell *matCellDef="let borrow">{{ borrow.borrowDate | date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
       </ng-container>
   
@@ -49,6 +54,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 10]" showFirstLastButtons></mat-paginator>
   </div>
   
 </div>

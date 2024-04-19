@@ -30,13 +30,12 @@ import { UserDTO } from '../../../models';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
 export class RegisterComponent {
   passwordPattern = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{7,}$/;
 
   registerForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]]
   });

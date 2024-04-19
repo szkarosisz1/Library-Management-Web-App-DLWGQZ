@@ -3,5 +3,5 @@ import { Borrow } from "../entity/Borrow"
 import { Controller } from "./base.controller"
 
 export class BorrowController extends Controller{
-    repository = AppDataSource.getRepository(Borrow)
+    repository = AppDataSource.getRepository(Borrow);
 }
