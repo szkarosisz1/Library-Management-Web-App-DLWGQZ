@@ -1,14 +1,12 @@
 <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
-<div class="container" style="width: 60vw; margin: 0 auto;">
-  <mat-toolbar color="primary" style="display: flex; justify-content: center;">
-    <h1>Üdvözöljük a Könyvtári nyilvántartásban!</h1>
-  </mat-toolbar>
+
+<div class="container">
+  <h1>Üdvözöljük a Könyvtári nyilvántartásban!</h1>
 
   <mat-divider [vertical]="true" style="margin: 3vh 0;"></mat-divider>
 
   <p>Ez az alkalmazás lehetővé teszi a könyvek, multimédiás anyagok kölcsönzését és nyilvántartását.</p>
   
-    <!-- Képek gombnyomással való váltásához -->
     <div class="image-container" [ngClass]="{'slide-in': slideAnimation}">
       <img src="assets/images/book-1.jpg" *ngIf="selectedImage === 1">
       <img src="assets/images/book-2.png" *ngIf="selectedImage === 2">

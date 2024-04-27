@@ -1,22 +1,22 @@
 .image-container {
-    overflow: hidden; /* Túlcsordulás kezelése */
-    position: relative; /* Relatív pozícionálás */
-    width: 100%; /* Teljes szélesség */
-    height: auto; /* Automatikus magasság */
+    overflow: hidden;
+    position: relative; 
+    width: 100%;
+    height: auto; 
   }
   
 .slide-in {
-    animation: slideInOut 0.4s ease-out; /* Animáció alkalmazása */
+    animation: slideInOut 0.4s ease-out;
 }
   
 @keyframes slideInOut {
     0% {
-      transform: translateX(-100%); /* Kezdőállapot: balról jobbra elmozdulva */
-      opacity: 0; /* Átlátszóság */
+      transform: translateX(-100%);
+      opacity: 0; 
     }
     100% {
-      transform: translateX(0); /* Végállapot: eredeti pozícióba visszatérve */
-      opacity: 1; /* Teljesen látható */
+      transform: translateX(0);
+      opacity: 1;
     }
 }
   

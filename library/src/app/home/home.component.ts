@@ -1,20 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     MatDivider,
-    MatIconModule,
-    MatToolbar,
-    MatToolbarModule
+    MatIconModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

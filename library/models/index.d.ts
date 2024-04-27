@@ -27,6 +27,7 @@ export interface BorrowDTO {
     book: BookDTO | null;
     cassette: CassetteDTO | null;
     dvd: DVDDTO | null;
+    maxBorrowsCount: number;
     delay: number;
 }
 

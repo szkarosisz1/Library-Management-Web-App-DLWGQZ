@@ -49,10 +49,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class BorrowedDvdListComponent {
   borrowedDvds: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'dvd', 'actions'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'dvd', 'maxBorrowsCount', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrowedDvds);
   event: any;
   borrow: any;
+  maxBorrowsCount: number = 6;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -68,6 +69,11 @@ export class BorrowedDvdListComponent {
     ) { }
 
     openDialog(borrow: BorrowDTO | null = null) {
+      if (this.borrowedDvds.length >= this.maxBorrowsCount) {
+        this.toastrService.error('Maximum kölcsönzések száma elért.', 'Hiba a kölcsönzésnél');
+        return;
+      }
+
       const dialogRef = this.dialog.open(BorrowedDvdFormDialogComponent, {
         width: '30%',
         data: borrow
@@ -78,6 +84,10 @@ export class BorrowedDvdListComponent {
           this.loadBorrowedDvds();
         }
       });
+    }
+
+    checkMaxBorrowsReached(): boolean {
+      return this.borrowedDvds.length >= this.maxBorrowsCount;
     }
     
     ngOnInit(): void {

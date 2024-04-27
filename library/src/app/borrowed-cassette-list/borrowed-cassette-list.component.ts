@@ -49,10 +49,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class BorrowedCassetteListComponent {
   borrowedCassettes: BorrowDTO[] = [];
-  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'cassette', 'actions'];
+  displayedColumns: string[] = ['id', 'borrowDate', 'member', 'cassette', 'maxBorrowsCount', 'actions'];
   dataSource: MatTableDataSource<BorrowDTO> = new MatTableDataSource<BorrowDTO>(this.borrowedCassettes);
   event: any;
   borrow: any;
+  maxBorrowsCount: number = 6;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -68,6 +69,11 @@ export class BorrowedCassetteListComponent {
     ) { }
 
     openDialog(borrow: BorrowDTO | null = null) {
+      if (this.borrowedCassettes.length >= this.maxBorrowsCount) {
+        this.toastrService.error('Maximum kölcsönzések száma elért.', 'Hiba a kölcsönzésnél');
+        return;
+      }
+
       const dialogRef = this.dialog.open(BorrowedCassetteFormDialogComponent, {
         width: '30%',
         data: borrow
@@ -78,6 +84,10 @@ export class BorrowedCassetteListComponent {
           this.loadBorrowedCassettes();
         }
       });
+    }
+
+    checkMaxBorrowsReached(): boolean {
+      return this.borrowedCassettes.length >= this.maxBorrowsCount;
     }
     
     ngOnInit(): void {

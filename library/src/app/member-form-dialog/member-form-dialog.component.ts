@@ -45,7 +45,8 @@ export class MemberFormDialogComponent {
     name: ['', [Validators.required]],
     phoneNumber: ['', [Validators.required, Validators.pattern(this.phonepattern)]],
     idCardNumber: ['', [Validators.required, Validators.pattern(this.idCardPattern)]],
-    address: ['', [Validators.required]]
+    address: ['', [Validators.required]],
+    status: ['', [Validators.required]]
   });
 
   errorMessage = {

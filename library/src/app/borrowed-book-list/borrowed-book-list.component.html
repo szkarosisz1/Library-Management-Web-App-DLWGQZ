@@ -47,6 +47,11 @@
           <mat-cell *matCellDef="let borrow">{{ borrow.book ? borrow.book.title : '-' }}</mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="maxBorrowsCount">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Max kölcsönzések</mat-header-cell>
+          <mat-cell *matCellDef="let borrow">{{ checkMaxBorrowsReached() }}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
           <mat-cell *matCellDef="let borrow">
