@@ -17,14 +17,14 @@
               </mat-form-field>
               
               <mat-form-field style="width: 100%; margin-bottom: 1vh;">
-                <input matInput placeholder="Email" id="email" formControlName="email">
+                <input matInput placeholder="Email" id="email" formControlName="email" type="email">
                 <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty">
                   {{errorMessage.email}}
                 </mat-error>
               </mat-form-field>
               
               <mat-form-field style="width: 100%; margin-bottom: 1vh;">
-                <input matInput placeholder="Jelszó" id="password" formControlName="password">
+                <input matInput placeholder="Jelszó" id="password" formControlName="password" type="password">
                 <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.dirty">
                   {{errorMessage.password}}
                 </mat-error>
