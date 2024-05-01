@@ -22,7 +22,7 @@
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
         <mat-cell *matCellDef="let borrow">{{ borrow.id }}</mat-cell>
       </ng-container>
   
