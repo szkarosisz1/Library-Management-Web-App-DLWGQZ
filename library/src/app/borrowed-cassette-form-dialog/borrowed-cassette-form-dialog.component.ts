@@ -36,10 +36,13 @@ export class BorrowedCassetteFormDialogComponent {
   members: MemberDTO | null = null; 
   cassettes: CassetteDTO | null = null;
 
+  memberId: number | null = null;
+  cassetteId: number | null = null;
+
   borrowForm = this.formBuilder.group({
-    member: [this.members, Validators.required],
+    member: [this.memberId, Validators.required],
     borrowDate: [new Date(), Validators.required],
-    cassette: [this.cassettes, Validators.required]
+    cassette: [this.cassetteId, Validators.required]
   });
 
   errorMessage = {
@@ -65,12 +68,19 @@ export class BorrowedCassetteFormDialogComponent {
     this.actionBtn = this.data ? "Módosítás" : "Mentés";
     this.dialogTitle = this.data ? 'Kölcsönzés módosítása' : 'Kölcsönzés hozzáadása';
     if (this.data) { 
-      this.borrowForm.patchValue(this.data);
+      // Idegen kulcsok inicializálása
+      this.memberId = this.data.member.id;
+      this.cassetteId = this.data.cassette.id;
+      this.borrowForm.patchValue({
+        member: this.memberId,
+        borrowDate: this.data.borrowDate,
+        cassette: this.cassetteId
+      });
     }
   }
 
   save() {
-    const borrow = this.borrowForm.value as BorrowDTO;
+    const borrow = this.borrowForm.value as unknown as BorrowDTO;
     this.spinner.show();
     this.dialogRef.close();
 

@@ -34,10 +34,13 @@ export class ReturnCassetteFormDialogComponent {
   members: MemberDTO | null = null; 
   cassettes: CassetteDTO | null = null;
 
+  memberId: number | null = null;
+  cassetteId: number | null = null;
+
   borrowForm = this.formBuilder.group({
     returnDate: [new Date(), Validators.required],
-    member: [this.members, Validators.required],
-    cassette: [this.cassettes, Validators.required]
+    member: [this.memberId, Validators.required],
+    cassette: [this.cassetteId, Validators.required]
   });
 
   errorMessage = {
@@ -55,8 +58,25 @@ export class ReturnCassetteFormDialogComponent {
     private spinner: NgxSpinnerService
   ) { }
 
+  ngOnInit(): void {
+    this.updateForm();
+  }
+
+  updateForm() {
+    if (this.data) { 
+      // Idegen kulcsok inicializálása
+      this.memberId = this.data.member.id;
+      this.cassetteId = this.data.cassette.id;
+      this.borrowForm.patchValue({
+        returnDate: this.data.returnDate,
+        member: this.memberId,
+        cassette: this.cassetteId
+      });
+    }
+  }
+
   save() {
-    const borrow = this.borrowForm.value as BorrowDTO;
+    const borrow = this.borrowForm.value as unknown as BorrowDTO;
     this.spinner.show();
     this.dialogRef.close();
   

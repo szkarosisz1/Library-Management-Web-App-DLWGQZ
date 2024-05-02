@@ -34,10 +34,13 @@ export class ReturnBookFormDialogComponent {
   members: MemberDTO | null = null; 
   books: BookDTO | null = null;
 
+  memberId: number | null = null;
+  bookId: number | null = null;
+
   borrowForm = this.formBuilder.group({
     returnDate: [new Date(), Validators.required],
-    member: [this.members, Validators.required],
-    book: [this.books, Validators.required]
+    member: [this.memberId, Validators.required],
+    book: [this.bookId, Validators.required]
   });
 
   errorMessage = {
@@ -55,8 +58,25 @@ export class ReturnBookFormDialogComponent {
     private spinner: NgxSpinnerService
   ) { }
 
+  ngOnInit(): void {
+    this.updateForm();
+  }
+
+  updateForm() {
+    if (this.data) { 
+      // Idegen kulcsok inicializálása
+      this.memberId = this.data.member.id;
+      this.bookId = this.data.book.id;
+      this.borrowForm.patchValue({
+        returnDate: this.data.returnDate,
+        member: this.memberId,
+        book: this.bookId
+      });
+    }
+  }
+
   save() {
-    const borrow = this.borrowForm.value as BorrowDTO;
+    const borrow = this.borrowForm.value as unknown as BorrowDTO;
     this.spinner.show();
     this.dialogRef.close();
 

@@ -36,10 +36,13 @@ export class BorrowedDvdFormDialogComponent {
   members: MemberDTO | null = null; 
   dvds: DVDDTO | null = null;
 
+  memberId: number | null = null;
+  dvdId: number | null = null;
+
   borrowForm = this.formBuilder.group({
-    member: [this.members, Validators.required],
+    member: [this.memberId, Validators.required],
     borrowDate: [new Date(), Validators.required],
-    dvd: [this.dvds, Validators.required]
+    dvd: [this.dvdId, Validators.required]
   });
 
   errorMessage = {
@@ -65,12 +68,19 @@ export class BorrowedDvdFormDialogComponent {
     this.actionBtn = this.data ? "Módosítás" : "Mentés";
     this.dialogTitle = this.data ? 'Kölcsönzés módosítása' : 'Kölcsönzés hozzáadása';
     if (this.data) { 
-      this.borrowForm.patchValue(this.data);
+      // Idegen kulcsok inicializálása
+      this.memberId = this.data.member.id;
+      this.dvdId = this.data.dvd.id;
+      this.borrowForm.patchValue({
+        member: this.memberId,
+        borrowDate: this.data.borrowDate,
+        dvd: this.dvdId
+      });
     }
   }
 
   save() {
-    const borrow = this.borrowForm.value as BorrowDTO;
+    const borrow = this.borrowForm.value as unknown as BorrowDTO;
     this.spinner.show();
     this.dialogRef.close();
 
